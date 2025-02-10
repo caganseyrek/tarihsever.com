@@ -28,7 +28,7 @@ interface TocSidebarProps {
 
 const parseText = (text: string): string =>
   text
-    .replace(/[\/()'"]/g, "")
+    .replace(/[\/()'",.;]/g, "")
     .replaceAll(" ", "-")
     .toLowerCase();
 
