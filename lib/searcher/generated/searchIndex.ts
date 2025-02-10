@@ -8,6 +8,6 @@ export interface SearchIndexProps {
       };
     };
   };
-};
+}
 
-export const searchIndex: SearchIndexProps = {}
+export const searchIndex: SearchIndexProps = {};

@@ -6,4 +6,4 @@ export interface ArticleMapProps {
   title: string;
 }
 
-export const articlesMap: ArticleMapProps[] = []
+export const articlesMap: ArticleMapProps[] = [];
