@@ -33,7 +33,7 @@ const BaseLayout = ({ loadedPageKey, loadedTopicKey, loadedArticleKey, children 
   } else if (loadedTopicKey) {
     currentTopic = Finder.findTopic(loadedTopicKey);
     if (loadedArticleKey) {
-      currentArticle = Finder.findSinlgeArticleByTopic(loadedTopicKey, loadedArticleKey);
+      currentArticle = Finder.findArticleByTopic(loadedTopicKey, loadedArticleKey);
     }
   }
 

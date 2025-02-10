@@ -45,7 +45,7 @@ const ShareDialog = () => {
       <DialogContent>
         <DialogHeader>
           <DialogTitle>Sayfayı Paylaş</DialogTitle>
-          <DialogDescription>{`Aşağıdaki${redirectCode ? "kısa" : ""} link ile bu sayfaya${redirectCode ? "kolayca" : ""} ulaşabilirsiniz.`}</DialogDescription>
+          <DialogDescription>{`Aşağıdaki${redirectCode ? " kısa " : " "}link ile bu sayfaya${redirectCode ? " kolayca " : " "}ulaşabilirsiniz.`}</DialogDescription>
         </DialogHeader>
         <div className="flex flex-col items-center justify-start gap-2">
           <Button className="w-full text-[0.95rem] justify-between" onClick={() => handleCopy()}>
