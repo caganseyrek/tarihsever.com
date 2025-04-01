@@ -1,6 +1,6 @@
 import { type MetadataRoute } from "next";
 
-import { description } from "@/data/metadata";
+import { description } from "@/shared/data/metadata";
 
 function manifest(): MetadataRoute.Manifest {
   return {

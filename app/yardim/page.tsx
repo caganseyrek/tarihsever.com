@@ -1,17 +1,13 @@
 import React from "react";
 
-import MarkdownPageLayout from "@/components/layout/MarkdownPageLayout";
+import ContentLayout from "@/components/content-layout/ContentLayout";
 
-import { Loader } from "@/lib/file-manager/loader";
-
-const YardimPage = () => {
-  const yardimContents: string = Loader.loadCustomPage("yardim");
+export default async function YardimPage() {
+  const { default: Contents } = await import("@/shared/content/pages/yardim.mdx");
 
   return (
-    <MarkdownPageLayout loadedPageKey="yardim" loadedTopicKey={null} loadedArticleKey={null}>
-      {yardimContents}
-    </MarkdownPageLayout>
+    <ContentLayout>
+      <Contents />
+    </ContentLayout>
   );
-};
-
-export default YardimPage;
+}

@@ -1,23 +1,23 @@
 "use client";
 
-import { ReadonlyURLSearchParams, redirect, useSearchParams } from "next/navigation";
+import { ReadonlyURLSearchParams, useRouter, useSearchParams } from "next/navigation";
 
-import Finder from "@/lib/lookup/finder";
+import Finder from "@/shared/lib/lookup/finder";
 
-const ShortlinkRedirectPage = () => {
+export default function ShortlinkPage() {
+  const router = useRouter();
+
   const searchParams: ReadonlyURLSearchParams = useSearchParams();
   const redirectCode: string | null = searchParams.get("r");
 
   if (!redirectCode) {
-    return redirect("/konular");
+    return router.replace("/");
   }
 
   const redirectTo: string | null = Finder.findRedirectLink(redirectCode);
   if (!redirectTo) {
-    return redirect("/konular");
+    return router.replace("/konular");
   }
 
-  return redirect(redirectTo);
-};
-
-export default ShortlinkRedirectPage;
+  return router.replace(redirectTo);
+}

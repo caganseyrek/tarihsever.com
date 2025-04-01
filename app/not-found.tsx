@@ -1,10 +1,11 @@
 import React from "react";
 
 import { Metadata } from "next";
+import Link from "next/link";
 
 import { ArrowLeft } from "lucide-react";
 
-import LinkedButton from "@/components/LinkedButton";
+import { Button } from "@/components/base/button";
 import TarihseverIcon from "@/components/TarihseverIcon";
 
 export const metadata: Metadata = { title: "Sayfa bulunamadı" };
@@ -16,9 +17,11 @@ const NotFoundPage = () => {
         <TarihseverIcon variant="large" />
         <h1 className="text-2xl font-semibold tracking-tight">Bu Sayfa Tarihe Karışmış...</h1>
         <div className="text-muted-foreground">Bu sayfayı bulamadık. Belki de yanlış bir yoldan gelmişizdir?</div>
-        <LinkedButton link={{ href: "/" }}>
-          <ArrowLeft /> Ana Sayfaya Dön
-        </LinkedButton>
+        <Link href="/">
+          <Button>
+            <ArrowLeft /> Ana Sayfaya Dön
+          </Button>
+        </Link>
       </div>
     </div>
   );

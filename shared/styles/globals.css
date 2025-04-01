@@ -1,0 +1,138 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap");
+
+@import "tailwindcss";
+@import "tw-animate-css";
+@custom-variant dark (&:is(.dark *));
+
+:root {
+  --background: #f5f5f5;
+  --foreground: #171717;
+
+  --primary: hsl(0 0% 9%);
+  --primary-foreground: hsl(0 0% 98%);
+  --secondary: hsl(0 0% 96.1%);
+  --secondary-foreground: hsl(0 0% 9%);
+
+  --muted: hsl(0 0% 96.1%);
+  --muted-foreground: hsl(0 0% 45.1%);
+
+  --accent: hsl(0 0% 96.1%);
+  --accent-foreground: hsl(0 0% 9%);
+
+  --container-border: hsl(0 0% 89.8%);
+  --border: hsl(0 0% 89.8%);
+
+  --input: hsl(0 0% 89.8%);
+  --ring: hsl(0 0% 3.9%);
+  --radius: 0.5rem;
+}
+.dark {
+  --background: #171717;
+  --foreground: #f5f5f5;
+
+  --primary: #d89236;
+  --primary-foreground: #fad5a4;
+
+  --secondary: hsl(0 0% 96.1%);
+  --secondary-foreground: hsl(0 0% 9%);
+
+  --muted: #c1c1c1;
+  --muted-foreground: #c1c1c1;
+
+  --accent: #363636;
+  --accent-foreground: #f5f5f5;
+
+  --container-background: #1d1d1d;
+  --border: #2e2e2e;
+}
+
+@theme inline {
+  --font-sans: "Inter";
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+
+  --color-container-background: var(--container-background);
+  --color-border: var(--border);
+
+  --color-input: var(--input);
+}
+
+* {
+  @apply border-border font-sans outline-primary/50 scroll-smooth;
+}
+body {
+  @apply bg-background text-foreground text-sm min-w-[400px] m-0 p-0 min-h-dvh overflow-x-auto;
+}
+
+@layer components {
+  article {
+    @apply text-[0.965rem] leading-relaxed;
+  }
+  article h1 {
+    @apply text-3xl font-semibold tracking-tight mt-6;
+  }
+  article h2 {
+    @apply text-xl font-semibold tracking-tight mt-6;
+  }
+  article h3 {
+    @apply text-lg font-semibold tracking-tight mt-6;
+  }
+  article h4 {
+    @apply font-semibold tracking-tight mt-6;
+  }
+  article p {
+    @apply m-0 p-0 my-3 text-pretty dark:text-muted-foreground;
+  }
+  article h1 a,
+  article h2 a,
+  article h3 a,
+  article h4 a {
+    @apply text-foreground no-underline;
+  }
+  article ul,
+  article ol {
+    @apply px-[2rem] my-3;
+  }
+  article ul {
+    @apply list-[square];
+  }
+  article ol {
+    @apply list-decimal;
+  }
+  article blockquote {
+    @apply border border-l-[0.4rem] bg-container-background rounded-md my-3 p-3;
+  }
+  article a {
+    @apply underline text-[#d89236];
+  }
+  article ul li,
+  article ol li {
+    @apply dark:text-muted-foreground marker:text-foreground;
+  }
+  article ul li strong,
+  article ol li strong {
+    @apply text-foreground;
+  }
+  article ul li p,
+  article ol li p,
+  article blockquote p {
+    @apply indent-0 m-0;
+  }
+  article > h1 {
+    @apply mt-0;
+  }
+}

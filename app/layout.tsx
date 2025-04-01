@@ -2,13 +2,10 @@ import React from "react";
 
 import { Metadata } from "next";
 
-import { SidebarProvider } from "@/components/base/sidebar";
-import { SelectionContextProvider } from "@/components/context/SelectionContext";
-import ThemeProvider from "@/components/context/ThemeProvider";
+import { ThemeProvider } from "next-themes";
 
-import "@/styles/globals.css";
-
-import { headMetadata, jsonLd } from "@/data/metadata";
+import { headMetadata, jsonLd } from "@/shared/data/metadata";
+import "@/shared/styles/globals.css";
 
 interface RootLayoutProps {
   children: React.ReactNode;
@@ -24,7 +21,7 @@ export const metadata: Metadata = {
 
 const RootLayout = ({ children }: RootLayoutProps) => {
   return (
-    <html suppressHydrationWarning className="scroll-smooth">
+    <html lang="tr" suppressHydrationWarning>
       <head>
         <link rel="icon" href="/images/favicon.png" sizes="any" />
         <script
@@ -36,9 +33,7 @@ const RootLayout = ({ children }: RootLayoutProps) => {
       </head>
       <body>
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
-          <SelectionContextProvider>
-            <SidebarProvider>{children}</SidebarProvider>
-          </SelectionContextProvider>
+          {children}
         </ThemeProvider>
       </body>
     </html>

@@ -1,17 +1,13 @@
 import React from "react";
 
-import MarkdownPageLayout from "@/components/layout/MarkdownPageLayout";
+import ContentLayout from "@/components/content-layout/ContentLayout";
 
-import { Loader } from "@/lib/file-manager/loader";
-
-const SozlukPage = () => {
-  const sozlukContents: string = Loader.loadCustomPage("sozluk");
+export default async function SozlukPage() {
+  const { default: Contents } = await import("@/shared/content/pages/sozluk.mdx");
 
   return (
-    <MarkdownPageLayout loadedPageKey={"sozluk"} loadedTopicKey={null} loadedArticleKey={null}>
-      {sozlukContents}
-    </MarkdownPageLayout>
+    <ContentLayout>
+      <Contents />
+    </ContentLayout>
   );
-};
-
-export default SozlukPage;
+}
