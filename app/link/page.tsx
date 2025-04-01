@@ -2,7 +2,7 @@
 
 import { ReadonlyURLSearchParams, useRouter, useSearchParams } from "next/navigation";
 
-import Finder from "@/shared/lib/lookup/finder";
+// import Finder from "@/shared/lib/lookup/finder";
 
 export default function ShortlinkPage() {
   const router = useRouter();
@@ -14,7 +14,7 @@ export default function ShortlinkPage() {
     return router.replace("/");
   }
 
-  const redirectTo: string | null = Finder.findRedirectLink(redirectCode);
+  const redirectTo: string | null = null; //Finder.findRedirectLink(redirectCode);
   if (!redirectTo) {
     return router.replace("/konular");
   }
