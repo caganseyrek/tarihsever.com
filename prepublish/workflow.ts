@@ -26,7 +26,7 @@ interface DirToProcessProps {
 
 class Workflow {
   // The root directory containing content files
-  public static contentDirectory: string = path.join(process.cwd(), "shared", "content");
+  public static contentDirectory: string = path.join(process.cwd(), "resources", "content");
 
   // The directory where generated output files are stored
   public static outputDirectory: string = path.join(process.cwd(), "prepublish", "generated");
