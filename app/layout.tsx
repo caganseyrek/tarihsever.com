@@ -4,8 +4,9 @@ import { Metadata } from "next";
 
 import { ThemeProvider } from "next-themes";
 
-import { headMetadata, jsonLd } from "@/shared/data/metadata";
 import "@/shared/styles/globals.css";
+
+import { headMetadata, jsonLd } from "@/resources/data/metadata";
 
 interface RootLayoutProps {
   children: React.ReactNode;

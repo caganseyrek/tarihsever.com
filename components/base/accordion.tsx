@@ -4,7 +4,7 @@ import React from "react";
 
 import { Content, Header, Item, Root, Trigger } from "@radix-ui/react-accordion";
 
-import { cn } from "@/shared/twUtils";
+import { cn } from "@/shared/utils";
 
 const Accordion = React.forwardRef<React.ComponentRef<typeof Root>, React.ComponentPropsWithoutRef<typeof Root>>(
   ({ className, ...props }, ref) => (
@@ -20,7 +20,7 @@ const AccordionTrigger = React.forwardRef<
   React.ComponentPropsWithoutRef<typeof Trigger>
 >(({ className, children, ...props }, ref) => (
   <Header className="flex">
-    <Trigger ref={ref} className={cn("[&[data-state=open]>svg]:rotate-180", className)} {...props}>
+    <Trigger ref={ref} className={cn("[&[data-state=open]_svg]:rotate-180 transition-transform", className)} {...props}>
       {children}
     </Trigger>
   </Header>

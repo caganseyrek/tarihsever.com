@@ -2,22 +2,25 @@
 
 import { ReadonlyURLSearchParams, useRouter, useSearchParams } from "next/navigation";
 
-// import Finder from "@/shared/lib/lookup/finder";
+import { shortLinks } from "@/prepublish/generated/shortlinks";
+import { ShortLinkProps } from "@/prepublish/tasks/generate-shortlinks";
 
-export default function ShortlinkPage() {
+const ShortlinkPage = () => {
   const router = useRouter();
 
   const searchParams: ReadonlyURLSearchParams = useSearchParams();
-  const redirectCode: string | null = searchParams.get("r");
+  const shortLinkCode: string | null = searchParams.get("r");
 
-  if (!redirectCode) {
+  if (!shortLinkCode) {
     return router.replace("/");
   }
 
-  const redirectTo: string | null = null; //Finder.findRedirectLink(redirectCode);
-  if (!redirectTo) {
+  const shortLinkItem: ShortLinkProps | undefined = shortLinks.find((link) => link.shortLinkCode === shortLinkCode);
+  if (!shortLinkItem) {
     return router.replace("/konular");
   }
 
-  return router.replace(redirectTo);
-}
+  return router.replace(shortLinkItem.redirectsTo);
+};
+
+export default ShortlinkPage;

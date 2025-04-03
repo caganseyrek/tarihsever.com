@@ -1,44 +1,23 @@
-"use client";
-
 import React from "react";
 
-import { LinkIcon } from "lucide-react";
+import { SidebarSubcontent, SidebarSubcontentItem } from "@/components/sidebar/Sidebar.Partials";
 
-import { Button } from "../base/button";
+import { slugify } from "@/shared/utils";
 
-const ShareDialog = () => {
-  // const [isCopied, setIsCopied] = React.useState<boolean>(false);
+import { HeadingNodeProps } from "@/prepublish/tasks/generate-toc";
 
-  // const pathname: string = usePathname();
-  // const redirectCode: string | null = Finder.findShortlinkCode(pathname);
-  // const redirectLink: string = redirectCode ? `${baseURL}link?r=${redirectCode}` : baseURL + pathname.replace("/", "");
-
-  // const handleCopy = () => {
-  //   if (!redirectLink) return;
-
-  //   setIsCopied(true);
-  //   navigator.clipboard.writeText(redirectLink);
-  //   setTimeout(() => setIsCopied(false), 3000);
-  // };
-
-  return (
-    <Button className="w-full">
-      <LinkIcon /> Sayfayı Paylaş
-    </Button>
-  );
-  // <Dialog>
-  //   <DialogTrigger asChild>
-  //   </DialogTrigger>
-  //   <DialogContent>
-  //     <DialogHeader>
-  //       <DialogTitle>Sayfayı Paylaş</DialogTitle>
-  //       <DialogDescription>{`Aşağıdaki ${redirectCode ? "kısa " : " "}link ile bu sayfaya ${redirectCode ? "kolayca " : " "}ulaşabilirsiniz.`}</DialogDescription>
-  //     </DialogHeader>
-  //     <Button className="w-full rounded-sm justify-between" onClick={() => handleCopy()}>
-  //       {redirectLink} {isCopied ? <Check /> : <Copy />}
-  //     </Button>
-  //   </DialogContent>
-  // </Dialog>
+const renderHeadingNodes = (nodes: HeadingNodeProps[]) => {
+  return nodes.map((node) => {
+    const parsedText: string = slugify(node.text);
+    return (
+      <React.Fragment key={parsedText}>
+        <SidebarSubcontentItem link={"#" + parsedText}>{node.text}</SidebarSubcontentItem>
+        {node.children && node.children.length > 0 && (
+          <SidebarSubcontent>{renderHeadingNodes(node.children)}</SidebarSubcontent>
+        )}
+      </React.Fragment>
+    );
+  });
 };
 
-export { ShareDialog };
+export { renderHeadingNodes };

@@ -2,12 +2,14 @@ import React from "react";
 
 import ContentLayout from "@/components/content-layout/ContentLayout";
 
-export default async function YardimPage() {
-  const { default: Contents } = await import("@/shared/content/pages/yardim.mdx");
+const YardimPage = async () => {
+  const { default: Contents, toc } = await import("@/resources/content/pages/yardim.mdx");
 
   return (
-    <ContentLayout>
+    <ContentLayout tocObject={toc}>
       <Contents />
     </ContentLayout>
   );
-}
+};
+
+export default YardimPage;

@@ -7,31 +7,30 @@ import {
   SidebarSubcontent,
   SidebarSubcontentItem,
 } from "@/components/sidebar/Sidebar.Partials";
-import TocGenerator, { HeadingNode } from "@/components/table-of-contents/tableOfContents.generator";
 
-import { ShareDialog } from "./TableOfContents.Partials";
-import { parseText, renderNodes } from "./TableOfContents.Utils";
+import { slugify } from "@/shared/utils";
 
-export interface TocSidebarProps {
-  pageContent: React.ReactNode;
+import { HeadingNodeProps } from "@/prepublish/tasks/generate-toc";
+
+import { renderHeadingNodes } from "./TableOfContents.Partials";
+
+interface TableOfContentsProps {
+  tocObject: HeadingNodeProps[];
 }
 
-const TableOfContents = () => {
-  const headingNodes: HeadingNode[] = TocGenerator.generateNodes([]);
-
+const TableOfContents = ({ tocObject }: TableOfContentsProps) => {
   return (
-    <SidebarRoot className="border-0 bg-transparent">
-      <ShareDialog />
-      <SidebarContent className="sticky top-2">
+    <SidebarRoot>
+      <SidebarContent className="sticky top-4 gap-1">
         <SidebarContentLabel>İçindekiler</SidebarContentLabel>
         <div>
-          {headingNodes.map((node) => {
-            const parsedText: string = parseText(node.text);
+          {tocObject.map((node) => {
+            const parsedText: string = slugify(node.text);
             return (
               <React.Fragment key={parsedText}>
                 <SidebarSubcontentItem link={"#" + parsedText}>{node.text}</SidebarSubcontentItem>
                 {node.children && node.children.length > 0 && (
-                  <SidebarSubcontent>{renderNodes(node.children)}</SidebarSubcontent>
+                  <SidebarSubcontent>{renderHeadingNodes(node.children)}</SidebarSubcontent>
                 )}
               </React.Fragment>
             );

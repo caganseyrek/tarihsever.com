@@ -12,7 +12,7 @@ export const metadata: Metadata = { title: "Ana Sayfa" };
 
 const RootPage = () => {
   return (
-    <BasePageLayout>
+    <BasePageLayout tocObject={[]}>
       <div className="flex flex-col items-center justify-center gap-4 p-4 pb-8 my-8">
         <TarihseverIcon variant="large" />
         <h1 className="text-3xl font-semibold tracking-tight">Her Zaman, Her Yerde Tarih…</h1>

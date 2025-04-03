@@ -4,15 +4,27 @@ import NotFoundPage from "@/app/not-found";
 
 import ContentLayout from "@/components/content-layout/ContentLayout";
 
+import { articleSet } from "@/prepublish/generated/article-set";
+
 interface ArticlePageProps {
-  params: Promise<{ pathElements?: string[] }>;
+  params: Promise<{ articlePath?: string[] }>;
 }
 
-export default async function ArticlePage({ params }: ArticlePageProps) {
-  const awaitedPathElements: string[] = (await params).pathElements ?? [];
-  if (awaitedPathElements.length !== 3) {
+const ArticlePage = async ({ params }: ArticlePageProps) => {
+  const awaitedPathElements: string[] = (await params).articlePath ?? [];
+  const pathString: string = awaitedPathElements.join("/");
+
+  if (awaitedPathElements.length !== 4 || awaitedPathElements[0] !== "konular" || !articleSet.has(pathString)) {
     return <NotFoundPage />;
   }
 
-  return <ContentLayout>123</ContentLayout>;
-}
+  const { default: Contents, toc } = await import(`@/resources/content/topics/${pathString}.mdx`);
+
+  return (
+    <ContentLayout tocObject={toc}>
+      <Contents />
+    </ContentLayout>
+  );
+};
+
+export default ArticlePage;

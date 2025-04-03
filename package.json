@@ -1,6 +1,6 @@
 {
   "name": "tarihsever.com",
-  "version": "1.0.0",
+  "version": "1.0.0-alpha",
   "private": true,
   "license": "MIT",
   "author": {
@@ -12,13 +12,14 @@
     "url": "https://github.com/caganseyrek/tarihsever.com.git"
   },
   "scripts": {
-    "dev": "next dev --turbopack",
+    "dev": "next dev",
+    "dev:turbopack": "next dev --turbopack",
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
     "format:check": "prettier --check .",
     "format:write": "prettier --write .",
-    "prepublish": "tsx ./scripts/prepublish.ts"
+    "prepublish": "tsx ./prepublish/workflow.ts"
   },
   "lint-staged": {
     "*": [
@@ -48,6 +49,7 @@
     "schema-dts": "^1.1.5",
     "tailwind-merge": "^3.1.0",
     "tailwindcss-animate": "^1.0.7",
+    "title": "^4.0.1",
     "tw-animate-css": "^1.2.5"
   },
   "devDependencies": {
