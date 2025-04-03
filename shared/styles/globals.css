@@ -117,7 +117,7 @@ body {
     @apply border border-l-[0.4rem] bg-container-background rounded-md my-3 p-3;
   }
   article a {
-    @apply underline text-[#d89236];
+    @apply text-[#d89236] hover:underline;
   }
   article ul li,
   article ol li {

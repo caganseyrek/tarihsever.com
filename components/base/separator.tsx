@@ -4,7 +4,7 @@ import React from "react";
 
 import { Root as SeparatorRoot } from "@radix-ui/react-separator";
 
-import { cn } from "@/shared/twUtils";
+import { cn } from "@/shared/utils";
 
 const Separator = React.forwardRef<
   React.ComponentRef<typeof SeparatorRoot>,

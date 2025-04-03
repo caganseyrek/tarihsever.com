@@ -1,6 +1,6 @@
 import React from "react";
 
-import { cn } from "@/shared/twUtils";
+import { cn } from "@/shared/utils";
 
 import { ComponentTypes } from "@/types/globals";
 

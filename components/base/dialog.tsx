@@ -5,7 +5,7 @@ import React from "react";
 import { Close, Content, Description, Overlay, Portal, Root, Title, Trigger } from "@radix-ui/react-dialog";
 import { X as CloseIcon } from "lucide-react";
 
-import { cn } from "@/shared/twUtils";
+import { cn } from "@/shared/utils";
 
 const Dialog = Root;
 

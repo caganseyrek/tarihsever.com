@@ -2,12 +2,14 @@ import React from "react";
 
 import ContentLayout from "@/components/content-layout/ContentLayout";
 
-export default async function SozlukPage() {
-  const { default: Contents } = await import("@/shared/content/pages/sozluk.mdx");
+const SozlukPage = async () => {
+  const { default: Contents, toc } = await import("@/resources/content/pages/sozluk.mdx");
 
   return (
-    <ContentLayout>
+    <ContentLayout tocObject={toc}>
       <Contents />
     </ContentLayout>
   );
-}
+};
+
+export default SozlukPage;

@@ -16,7 +16,7 @@ import {
 } from "@radix-ui/react-dropdown-menu";
 import { Check } from "lucide-react";
 
-import { cn } from "@/shared/twUtils";
+import { cn } from "@/shared/utils";
 
 const DropdownMenuContent = React.forwardRef<
   React.ComponentRef<typeof Content>,
