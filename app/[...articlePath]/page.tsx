@@ -7,10 +7,20 @@ import ContentLayout from "@/components/content-layout/ContentLayout";
 import { articleSet } from "@/prepublish/generated/article-set";
 
 interface ArticlePageProps {
+  params: { articlePath?: string[] };
+}
+
+interface ArticlePageAsyncProps {
   params: Promise<{ articlePath?: string[] }>;
 }
 
-const ArticlePage = async ({ params }: ArticlePageProps) => {
+export const dynamicParams: boolean = true;
+
+export const generateStaticParams = (): ArticlePageProps["params"][] => {
+  return Array.from(articleSet).map((article) => ({ articlePath: article.split("/") }));
+};
+
+const ArticlePage = async ({ params }: ArticlePageAsyncProps) => {
   const awaitedPathElements: string[] = (await params).articlePath ?? [];
 
   if (
