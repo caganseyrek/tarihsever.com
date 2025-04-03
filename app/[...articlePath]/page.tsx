@@ -12,16 +12,21 @@ interface ArticlePageProps {
 
 const ArticlePage = async ({ params }: ArticlePageProps) => {
   const awaitedPathElements: string[] = (await params).articlePath ?? [];
-  const pathString: string = awaitedPathElements.join("/");
 
-  if (awaitedPathElements.length !== 4 || awaitedPathElements[0] !== "konular" || !articleSet.has(pathString)) {
+  if (
+    awaitedPathElements.length !== 4 ||
+    awaitedPathElements[0] !== "konular" ||
+    !articleSet.has(awaitedPathElements.join("/"))
+  ) {
     return <NotFoundPage />;
   }
+  const filePath: string = awaitedPathElements.slice(1).join("/");
 
-  const { default: Contents, toc } = await import(`@/resources/content/topics/${pathString}.mdx`);
+  // FIXME toc doesnt seem to import when building
+  const { default: Contents } = await import(`@/resources/content/topics/${filePath}.mdx`);
 
   return (
-    <ContentLayout tocObject={toc}>
+    <ContentLayout tocObject={[]}>
       <Contents />
     </ContentLayout>
   );
