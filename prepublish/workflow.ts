@@ -11,20 +11,20 @@ import TOCGenerator from "@/prepublish/tasks/generate-toc";
 
 class Workflow {
   // The root directory containing content files
-  public static resourcesDirectory: Readonly<string> = path.join(process.cwd(), "resources");
+  public static readonly resourcesDirectory: string = path.join(process.cwd(), "resources");
 
   // The directory where generated output files are stored
-  public static outputDirectory: Readonly<string> = path.join(process.cwd(), "resources", "generated");
+  public static readonly outputDirectory: string = path.join(process.cwd(), "resources", "generated");
 
   // Filenames for generated output files
-  private static outputFiles: Readonly<Workflows.Prepublish.OutputFileProps> = {
+  private static readonly outputFiles: Workflows.Prepublish.OutputFileProps = {
     navFileName: "article-nav.ts",
     setFileName: "article-set.ts",
     shortLinkFileName: "shortlinks.ts",
   };
 
   // List of directories to process, with associated processing options
-  private static dirsToProcess: Readonly<Workflows.Prepublish.DirToProcessProps[]> = [
+  private static readonly dirsToProcess: Workflows.Prepublish.DirToProcessProps[] = [
     {
       path: path.join(this.resourcesDirectory, "content"),
       options: {

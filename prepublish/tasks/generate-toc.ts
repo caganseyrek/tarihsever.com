@@ -6,7 +6,7 @@ import { slugify } from "@/shared/utils";
 import { Globals } from "@/types/globals";
 
 class TOCGenerator {
-  private static HEADING_REGEX: Readonly<RegExp> = /^(#+)\s+(.*?)$/;
+  private static readonly HEADING_REGEX: RegExp = /^(#+)\s+(.*?)$/;
 
   /**
    * Generates a Table of Contents (TOC) for a given article file.

@@ -10,7 +10,7 @@ class ShortLinkGenerator {
   private static shortLinks: Globals.Data.ShortLinkProps[] = [];
 
   // Allowed characters for generating short link codes.
-  private static shortLinkChars: Readonly<string> = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+  private static readonly shortLinkChars: string = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
 
   // Set of already generated short link codes to prevent duplicates.
   private static generatedCodes: Set<string> = new Set();

@@ -5,7 +5,7 @@ import Workflow from "@/prepublish/workflow";
 
 class PrepublishUtils {
   // Content file's extensions
-  private static ARTICLE_FILE_EXT: Readonly<string> = ".mdx";
+  private static readonly ARTICLE_FILE_EXT: string = ".mdx";
 
   /**
    * Recursively walks through a directory and applies an operation to each file with the specified extension.
