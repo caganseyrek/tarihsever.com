@@ -2,8 +2,9 @@
 
 import { ReadonlyURLSearchParams, useRouter, useSearchParams } from "next/navigation";
 
-import { shortLinks } from "@/prepublish/generated/shortlinks";
-import { ShortLinkProps } from "@/prepublish/tasks/generate-shortlinks";
+import { shortLinks } from "@/resources/generated/shortlinks";
+
+import { Globals } from "@/types/globals";
 
 const ShortlinkPage = () => {
   const router = useRouter();
@@ -15,9 +16,11 @@ const ShortlinkPage = () => {
     return router.replace("/");
   }
 
-  const shortLinkItem: ShortLinkProps | undefined = shortLinks.find((link) => link.shortLinkCode === shortLinkCode);
+  const shortLinkItem: Globals.Data.ShortLinkProps | undefined = shortLinks.find(
+    (link) => link.shortLinkCode === shortLinkCode,
+  );
   if (!shortLinkItem) {
-    return router.replace("/konular");
+    return router.replace("/s");
   }
 
   return router.replace(shortLinkItem.redirectsTo);

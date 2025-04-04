@@ -1,27 +1,22 @@
 import fs from "fs";
 import path from "path";
 
+import { Globals } from "@/types/globals";
+
 import PrepublishUtils from "@/prepublish/prepublish-utils";
 import Workflow from "@/prepublish/workflow";
 
-/**
- * Represents a short link mapping.
- * @property {string} shortLinkCode - The generated short link code.
- * @property {string} redirectsTo - The full URL or path the short link redirects to.
- */
-export interface ShortLinkProps {
-  shortLinkCode: string;
-  redirectsTo: string;
-}
-
 class ShortLinkGenerator {
-  private static shortLinks: ShortLinkProps[] = [];
+  private static shortLinks: Globals.Data.ShortLinkProps[] = [];
 
   // Allowed characters for generating short link codes.
-  private static shortLinkChars: string = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+  private static shortLinkChars: Readonly<string> = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
 
   // Set of already generated short link codes to prevent duplicates.
-  private static generatedShortLinks: Set<string> = new Set();
+  private static generatedCodes: Set<string> = new Set();
+
+  // Set of article that has short link to prevent duplicates.
+  private static processedRedirectPaths: Set<string> = new Set();
 
   /**
    * Generates a new short link for a given file path.
@@ -32,16 +27,19 @@ class ShortLinkGenerator {
   public static generate(fullPath: string): void {
     const formattedPath: string = PrepublishUtils.parseFullArticlePath(fullPath);
 
+    // Return early if current path has already a code generated for it
+    if (this.processedRedirectPaths.has(formattedPath)) return;
+
     let code: string;
     do {
       code = Array.from(
         { length: 8 },
         () => this.shortLinkChars[Math.floor(Math.random() * this.shortLinkChars.length)],
       ).join("");
-    } while (this.generatedShortLinks.has(code));
+    } while (this.generatedCodes.has(code));
 
     // Store the newly generated code to avoid duplicates
-    this.generatedShortLinks.add(code);
+    this.generatedCodes.add(code);
     this.shortLinks.push({ shortLinkCode: code, redirectsTo: formattedPath });
   }
 
@@ -56,13 +54,14 @@ class ShortLinkGenerator {
 
     // Try to read and parse existing short links
     try {
-      const { shortLinks } = await import("@/prepublish/generated/shortlinks");
+      const { shortLinks } = await import("@/resources/generated/shortlinks");
 
       // Add existing short links to the lists to make sure we are not
       // generating a duplicate short link
       shortLinks.forEach((shortLink) => {
         this.shortLinks.push(shortLink);
-        this.generatedShortLinks.add(shortLink.shortLinkCode);
+        this.generatedCodes.add(shortLink.shortLinkCode);
+        this.processedRedirectPaths.add(shortLink.redirectsTo);
       });
     } catch (error) {
       // eslint-disable-next-line no-console
@@ -79,9 +78,9 @@ class ShortLinkGenerator {
   public static saveShortLinks(outputFileName: string): void {
     // Save the generated article lookup set to the output set file
     const shortLinkFileContent: string = `// This file is auto-generated
-import { ShortLinkProps } from "@/prepublish/tasks/generate-shortlinks";
+import { Globals } from "@/types/globals";
 
-export const shortLinks: ShortLinkProps[] = ${JSON.stringify(this.shortLinks, null, 2)};\n`;
+export const shortLinks: Globals.Data.ShortLinkProps[] = ${JSON.stringify(this.shortLinks, null, 2)};\n`;
     fs.writeFileSync(path.join(Workflow.outputDirectory, outputFileName), shortLinkFileContent, "utf8");
   }
 }

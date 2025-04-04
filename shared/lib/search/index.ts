@@ -1,4 +1,4 @@
-import { searchIndex } from "@/prepublish/generated/search-index";
+import { searchIndex } from "@/resources/generated/search-index";
 
 import BM25, { ScoreProps } from "./core/bm25";
 import JaroWinkler from "./core/jaroWinkler";

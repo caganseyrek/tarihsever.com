@@ -7,9 +7,7 @@ import { Content, Header, Item, Root, Trigger } from "@radix-ui/react-accordion"
 import { cn } from "@/shared/utils";
 
 const Accordion = React.forwardRef<React.ComponentRef<typeof Root>, React.ComponentPropsWithoutRef<typeof Root>>(
-  ({ className, ...props }, ref) => (
-    <Root ref={ref} className={cn("w-full flex flex-col items-start justify-start gap-0.5", className)} {...props} />
-  ),
+  ({ className, ...props }, ref) => <Root ref={ref} className={cn("w-full", className)} {...props} />,
 );
 Accordion.displayName = Root.displayName;
 
@@ -20,7 +18,7 @@ const AccordionTrigger = React.forwardRef<
   React.ComponentPropsWithoutRef<typeof Trigger>
 >(({ className, children, ...props }, ref) => (
   <Header className="flex">
-    <Trigger ref={ref} className={cn("[&[data-state=open]_svg]:rotate-180 transition-transform", className)} {...props}>
+    <Trigger ref={ref} className={cn(className)} {...props}>
       {children}
     </Trigger>
   </Header>
@@ -33,7 +31,7 @@ const AccordionContent = React.forwardRef<
 >(({ className, children, ...props }, ref) => (
   <Content
     ref={ref}
-    className="overflow-hidden text-sm py-0.5 data-[state=closed]:animate-accordion-up data-[state=open]:animate-accordion-down"
+    className="overflow-hidden data-[state=closed]:animate-accordion-up data-[state=open]:animate-accordion-down"
     {...props}>
     <div className={cn(className)}>{children}</div>
   </Content>

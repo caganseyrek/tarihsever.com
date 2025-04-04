@@ -8,9 +8,7 @@ import "@/shared/styles/globals.css";
 
 import { headMetadata, jsonLd } from "@/resources/data/metadata";
 
-interface RootLayoutProps {
-  children: React.ReactNode;
-}
+import { Components } from "@/types/globals";
 
 export const metadata: Metadata = {
   title: {
@@ -20,7 +18,7 @@ export const metadata: Metadata = {
   ...headMetadata,
 };
 
-const RootLayout = ({ children }: RootLayoutProps) => {
+const RootLayout = ({ children }: Components.BaseWrapperProps) => {
   return (
     <html lang="tr" suppressHydrationWarning>
       <head>
@@ -33,7 +31,7 @@ const RootLayout = ({ children }: RootLayoutProps) => {
         />
       </head>
       <body>
-        <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
+        <ThemeProvider attribute="class" defaultTheme="dark" disableTransitionOnChange>
           {children}
         </ThemeProvider>
       </body>

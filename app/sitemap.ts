@@ -1,25 +1,26 @@
 import type { MetadataRoute } from "next";
 
 import { coreMetadata } from "@/resources/data/metadata";
+import { articleNav } from "@/resources/generated/article-nav";
 
 export const sitemap = (): MetadataRoute.Sitemap => {
   return [
     {
       url: coreMetadata.base_url,
-      lastModified: new Date(),
-      changeFrequency: "monthly",
+      lastModified: "2025-04-04",
     },
     {
       url: coreMetadata.base_url + "/sozluk",
-      lastModified: new Date(),
-      changeFrequency: "monthly",
+      lastModified: "2025-04-04",
     },
     {
       url: coreMetadata.base_url + "/yardim",
-      lastModified: new Date(),
-      changeFrequency: "monthly",
+      lastModified: "2025-04-04",
     },
-    // TODO add articles here
+    ...articleNav.map((article) => ({
+      url: coreMetadata.base_url + "/" + article.path,
+      lastModified: "2025-04-04",
+    })),
   ];
 };
 

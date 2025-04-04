@@ -6,27 +6,13 @@ import { ArrowUp } from "lucide-react";
 
 import { cn, slugify } from "@/shared/utils";
 
-import { ComponentTypes } from "@/types/globals";
+import { Components } from "@/types/globals";
 
-interface SourcesItemProps extends ComponentTypes.BaseWrapperProps {
-  id: string;
-}
-
-interface BackToHeadingProps {
-  className?: string;
-  sourceOrigin: string;
-  hoverTitle: string;
-}
-interface SourcesLinkContainerItemProps {
-  prefix: string;
-  link: string;
-}
-
-const SourcesContainer = ({ children, className }: ComponentTypes.BaseWrapperProps) => {
-  return <ol className={cn("flex flex-col items-start justify-start gap-2", className)}>{children}</ol>;
+const SourcesContainer = ({ children, className }: Components.BaseWrapperProps) => {
+  return <ol className={cn("flex flex-col items-start justify-start gap-6 list-inside p-0", className)}>{children}</ol>;
 };
 
-const SourcesContainerItem = ({ children, className, id }: SourcesItemProps) => {
+const SourcesContainerItem = ({ children, className, id }: Components.MDX.SourcesItemProps) => {
   return (
     <li id={id} className={cn("w-full marker:font-semibold", className)}>
       {children}
@@ -34,11 +20,11 @@ const SourcesContainerItem = ({ children, className, id }: SourcesItemProps) => 
   );
 };
 
-const SourcesLinkContainer = ({ children, className }: ComponentTypes.BaseWrapperProps) => {
-  return <ul className={cn("bg-container-background py-2 border rounded-md", className)}>{children}</ul>;
+const SourcesLinkContainer = ({ children, className }: Components.BaseWrapperProps) => {
+  return <ul className={cn("bg-container-background py-2 mt-2 border rounded-md", className)}>{children}</ul>;
 };
 
-const SourcesLinkContainerItem = ({ prefix, link }: SourcesLinkContainerItemProps) => {
+const SourcesLinkContainerItem = ({ prefix, link }: Components.MDX.SourcesLinkContainerItemProps) => {
   return (
     <li>
       {prefix}{" "}
@@ -49,10 +35,10 @@ const SourcesLinkContainerItem = ({ prefix, link }: SourcesLinkContainerItemProp
   );
 };
 
-const BackToHeading = ({ className, sourceOrigin, hoverTitle }: BackToHeadingProps) => {
+const BackToHeading = ({ className, sourceOrigin, hoverTitle }: Components.MDX.BackToHeadingProps) => {
   return (
     <Link href={"#" + slugify(sourceOrigin)} title={hoverTitle} className={cn("mx-0.5 px-1", className)}>
-      <ArrowUp className="size-4.5 inline text-foreground hover:text-primary transition-colors" />
+      <ArrowUp className="size-4.5 mb-0.5 inline text-foreground hover:text-primary transition-colors" />
     </Link>
   );
 };

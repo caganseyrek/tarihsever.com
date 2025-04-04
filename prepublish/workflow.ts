@@ -1,47 +1,32 @@
 import fs from "fs";
 import path from "path";
 
+import { Workflows } from "@/types/globals";
+
 import PrepublishUtils from "@/prepublish/prepublish-utils";
+import ArticleNavGenerator from "@/prepublish/tasks/generate-article-nav";
 import ArticleSetGenerator from "@/prepublish/tasks/generate-article-set";
 import ShortLinkGenerator from "@/prepublish/tasks/generate-shortlinks";
 import TOCGenerator from "@/prepublish/tasks/generate-toc";
 
-import ArticleNavGenerator from "./tasks/generate-article-nav";
-
-interface OutputFileProps {
-  navFileName: string;
-  setFileName: string;
-  shortLinkFileName: string;
-}
-
-interface DirToProcessProps {
-  path: string;
-  options: {
-    addToArticleSet: boolean;
-    addToArticleNav: boolean;
-    generateShortLink: boolean;
-    generateToc: boolean;
-  };
-}
-
 class Workflow {
   // The root directory containing content files
-  public static contentDirectory: string = path.join(process.cwd(), "resources", "content");
+  public static resourcesDirectory: Readonly<string> = path.join(process.cwd(), "resources");
 
   // The directory where generated output files are stored
-  public static outputDirectory: string = path.join(process.cwd(), "prepublish", "generated");
+  public static outputDirectory: Readonly<string> = path.join(process.cwd(), "resources", "generated");
 
   // Filenames for generated output files
-  private static outputFiles: OutputFileProps = {
+  private static outputFiles: Readonly<Workflows.Prepublish.OutputFileProps> = {
     navFileName: "article-nav.ts",
     setFileName: "article-set.ts",
     shortLinkFileName: "shortlinks.ts",
   };
 
   // List of directories to process, with associated processing options
-  private static dirsToProcess: DirToProcessProps[] = [
+  private static dirsToProcess: Readonly<Workflows.Prepublish.DirToProcessProps[]> = [
     {
-      path: path.join(this.contentDirectory, "topics"),
+      path: path.join(this.resourcesDirectory, "content"),
       options: {
         addToArticleSet: true,
         addToArticleNav: true,
@@ -50,7 +35,7 @@ class Workflow {
       },
     },
     {
-      path: path.join(this.contentDirectory, "pages"),
+      path: path.join(this.resourcesDirectory, "pages"),
       options: {
         addToArticleSet: false,
         addToArticleNav: false,

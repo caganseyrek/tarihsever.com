@@ -1,10 +1,8 @@
 import React from "react";
 
-interface TarihseverIconProps {
-  variant?: "small" | "large";
-}
+import { Components } from "@/types/globals";
 
-const TarihseverIcon = ({ variant = "small" }: TarihseverIconProps) => {
+const TarihseverIcon = ({ variant = "small" }: Components.TarihseverIconProps) => {
   if (variant === "small") {
     return (
       <svg

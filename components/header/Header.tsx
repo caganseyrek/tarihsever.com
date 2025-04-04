@@ -4,23 +4,20 @@ import React from "react";
 
 import { usePathname } from "next/navigation";
 
-import { Moon } from "lucide-react";
-
-import { Button } from "@/components/base/button";
-import TarihseverIcon from "@/components/TarihseverIcon";
-
-import { cn } from "@/shared/utils";
-
-import { mainMenuLinks } from "@/resources/data/main-menu-links";
-
 import {
   HeaderNavItem,
   HeaderRightSection,
   HeaderRoot,
   HeaderSearchDialog,
+  HeaderThemeSelector,
   HeaderTitle,
   HeaderWrapper,
-} from "./Header.Partials";
+} from "@/components/header/Header.Partials";
+import TarihseverIcon from "@/components/TarihseverIcon";
+
+import { cn } from "@/shared/utils";
+
+import { mainMenuLinks } from "@/resources/data/main-menu-links";
 
 const Header = () => {
   const pathname = usePathname();
@@ -40,12 +37,10 @@ const Header = () => {
             <HeaderNavItem
               key={item.key}
               linkDetails={item}
-              className={cn(item.path === pathname && "bg-primary/10 text-primary-foreground")}
+              className={cn(item.path === pathname && "bg-primary-hover-background text-primary-lighter")}
             />
           ))}
-          <Button>
-            <Moon />
-          </Button>
+          <HeaderThemeSelector />
         </HeaderRightSection>
       </HeaderWrapper>
     </HeaderRoot>

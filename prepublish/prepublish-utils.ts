@@ -1,11 +1,11 @@
 import fs from "fs";
 import path from "path";
 
-import Workflow from "./workflow";
+import Workflow from "@/prepublish/workflow";
 
 class PrepublishUtils {
   // Content file's extensions
-  private static FILE_EXT: string = ".mdx";
+  private static ARTICLE_FILE_EXT: Readonly<string> = ".mdx";
 
   /**
    * Recursively walks through a directory and applies an operation to each file with the specified extension.
@@ -31,7 +31,7 @@ class PrepublishUtils {
       // If the current path is a directory, recursively process subdirectories
       if (stats.isDirectory()) {
         this.walkDirectory(fullPath, operation);
-      } else if (file.endsWith(this.FILE_EXT)) {
+      } else if (file.endsWith(this.ARTICLE_FILE_EXT)) {
         operation(fullPath);
       }
     });
@@ -45,9 +45,9 @@ class PrepublishUtils {
   public static parseFullArticlePath(articleFullPath: string): string {
     // Get relative path from the full path, normalize the path string, and remove the file extension
     const relativePath: string = path
-      .relative(Workflow.contentDirectory, articleFullPath)
+      .relative(Workflow.resourcesDirectory, articleFullPath)
       .replace(/\\/g, "/")
-      .replace(this.FILE_EXT, "");
+      .replace(this.ARTICLE_FILE_EXT, "");
 
     // The relative path currently starts with 'topics/'
     // In here we replace the 'topics/' prefix with the 'konular/' prefix

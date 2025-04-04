@@ -1,4 +1,4 @@
-import { searchIndex } from "@/prepublish/generated/search-index";
+import { searchIndex } from "@/resources/generated/search-index";
 
 export interface ScoreProps {
   [docKey: string]: number;

@@ -21,13 +21,13 @@ import { cn } from "@/shared/utils";
 const DropdownMenuContent = React.forwardRef<
   React.ComponentRef<typeof Content>,
   React.ComponentPropsWithoutRef<typeof Content>
->(({ className, sideOffset = 4, ...props }, ref) => (
+>(({ className, sideOffset = 5, ...props }, ref) => (
   <Portal>
     <Content
       ref={ref}
       sideOffset={sideOffset}
       className={cn(
-        "z-50 min-w-[8rem] overflow-hidden",
+        "z-50 min-w-[9rem] overflow-hidden left-0",
         "rounded-md border border-border bg-container-background text-foreground p-1 shadow-md",
         "data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2",
         className,
@@ -50,7 +50,7 @@ const DropdownMenuSeparator = React.forwardRef<
   React.ComponentRef<typeof Separator>,
   React.ComponentPropsWithoutRef<typeof Separator>
 >(({ className, ...props }, ref) => (
-  <Separator ref={ref} className={cn("-mx-1 my-1 h-px bg-border", className)} {...props} />
+  <Separator ref={ref} className={cn("-mx-1 my-1 h-px bg-container-background", className)} {...props} />
 ));
 DropdownMenuSeparator.displayName = Separator.displayName;
 
@@ -59,9 +59,9 @@ const DropdownMenuItem = React.forwardRef<React.ComponentRef<typeof Item>, React
     <Item
       ref={ref}
       className={cn(
-        "relative cursor-default select-none outline-none rounded-sm flex items-center gap-2 px-2 py-1.5",
+        "relative cursor-default select-none outline-hidden rounded-sm flex items-center gap-2 px-2 py-1.5",
         "transition-colors focus:bg-accent focus:text-accent-foreground",
-        "data-[disabled]:pointer-events-none data-[disabled]:opacity-50",
+        "data-disabled:pointer-events-none data-disabled:opacity-50",
         "[&>svg]:size-4 [&>svg]:shrink-0",
         className,
       )}
@@ -78,7 +78,7 @@ const DropdownMenuCheckboxItem = React.forwardRef<
   <CheckboxItem
     ref={ref}
     className={cn(
-      "relative flex cursor-default select-none items-center rounded-sm py-1.5 pl-8 pr-2 outline-none transition-colors focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50",
+      "relative flex cursor-pointer select-none items-center rounded-sm py-1.5 pl-8 pr-2 outline-hidden transition-colors focus:bg-accent focus:text-accent-foreground data-disabled:pointer-events-none data-disabled:opacity-50",
       className,
     )}
     checked={checked}

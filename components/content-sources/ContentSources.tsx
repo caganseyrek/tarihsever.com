@@ -6,22 +6,11 @@ import {
   SourcesContainerItem,
   SourcesLinkContainer,
   SourcesLinkContainerItem,
-} from "./ContentSources.Partials";
+} from "@/components/content-sources/ContentSources.Partials";
 
-interface ContentSourcesProps {
-  sources: {
-    sourceOrigin: string;
-    sourceAnchor: string;
-    sourceName: string;
-    sourceWebsiteName: string;
-    links: {
-      sourceWebsiteLink: string;
-      historicalDocument?: string;
-    };
-  }[];
-}
+import { Components } from "@/types/globals";
 
-const ContentSources = ({ sources }: ContentSourcesProps) => {
+const ContentSources = ({ sources }: Components.MDX.ContentSourcesProps) => {
   return (
     <>
       <h2>Kaynaklar</h2>

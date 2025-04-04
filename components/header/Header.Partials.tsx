@@ -1,8 +1,11 @@
+"use client";
+
 import React from "react";
 
 import Link from "next/link";
 
-import { Search } from "lucide-react";
+import { Moon, Search, Sun } from "lucide-react";
+import { useTheme } from "next-themes";
 
 import { Button } from "@/components/base/button";
 import {
@@ -10,29 +13,31 @@ import {
   DialogClose,
   DialogContent,
   DialogDescription,
+  DialogHeader,
   DialogTitle,
   DialogTrigger,
 } from "@/components/base/dialog";
-import { DialogHeader } from "@/components/base/dialog";
+import {
+  DropdownMenu,
+  DropdownMenuCheckboxItem,
+  DropdownMenuContent,
+  DropdownMenuTrigger,
+} from "@/components/base/dropdown-menu";
 import { Input } from "@/components/base/input";
 
 import { cn } from "@/shared/utils";
 
-import { ComponentTypes, Globals } from "@/types/globals";
+import { Components } from "@/types/globals";
 
-interface SidebarHeaderNavItemProps extends Omit<ComponentTypes.BaseWrapperProps, "children"> {
-  linkDetails: Globals.LinkProps;
-}
-
-const HeaderRoot = ({ children, className }: ComponentTypes.BaseWrapperProps) => {
+const HeaderRoot = ({ children, className }: Components.BaseWrapperProps) => {
   return (
-    <header className={cn("w-full bg-container-background/90 border-b border-border/80 mb-4", className)}>
+    <header id="top" className={cn("w-full bg-container-background border-b border-border", className)}>
       {children}
     </header>
   );
 };
 
-const HeaderWrapper = ({ children, className }: ComponentTypes.BaseWrapperProps) => {
+const HeaderWrapper = ({ children, className }: Components.BaseWrapperProps) => {
   return (
     <div className={cn("w-[1344px] m-auto p-4 gap-10 flex flex-row items-center justify-between", className)}>
       {children}
@@ -40,7 +45,7 @@ const HeaderWrapper = ({ children, className }: ComponentTypes.BaseWrapperProps)
   );
 };
 
-const HeaderTitle = ({ children, className }: ComponentTypes.BaseWrapperProps) => {
+const HeaderTitle = ({ children, className }: Components.BaseWrapperProps) => {
   return (
     <div
       className={cn(
@@ -54,11 +59,11 @@ const HeaderTitle = ({ children, className }: ComponentTypes.BaseWrapperProps) =
   );
 };
 
-const HeaderRightSection = ({ children, className }: ComponentTypes.BaseWrapperProps) => {
+const HeaderRightSection = ({ children, className }: Components.BaseWrapperProps) => {
   return <div className={cn("flex flex-row items-center justify-center gap-1", className)}>{children}</div>;
 };
 
-const HeaderNavItem = ({ className, linkDetails }: SidebarHeaderNavItemProps) => {
+const HeaderNavItem = ({ className, linkDetails }: Components.HeaderNavItemProps) => {
   return (
     <Link href={linkDetails.path} className="w-full">
       <Button variant="ghost" className={cn("w-full justify-start", className)}>
@@ -72,7 +77,7 @@ const HeaderSearchDialog = () => {
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <Button className="justify-start w-[400px] bg-border border-0">
+        <Button className="justify-start items-center w-[400px] bg-container-inner-item-background border-0">
           <Search /> Tarihsever&apos;de Ara...
         </Button>
       </DialogTrigger>
@@ -106,4 +111,34 @@ const HeaderSearchDialog = () => {
   );
 };
 
-export { HeaderRoot, HeaderWrapper, HeaderTitle, HeaderRightSection, HeaderNavItem, HeaderSearchDialog };
+const HeaderThemeSelector = () => {
+  const { resolvedTheme, setTheme } = useTheme();
+
+  return (
+    <DropdownMenu>
+      <DropdownMenuTrigger asChild>
+        <Button className="bg-container-inner-item-background border-0">
+          {resolvedTheme === "dark" ? <Sun /> : <Moon />}
+        </Button>
+      </DropdownMenuTrigger>
+      <DropdownMenuContent>
+        <DropdownMenuCheckboxItem onClick={() => setTheme("dark")} checked={resolvedTheme === "dark"}>
+          Karanlık Tema
+        </DropdownMenuCheckboxItem>
+        <DropdownMenuCheckboxItem onClick={() => setTheme("light")} checked={resolvedTheme === "light"}>
+          Aydınlık Tema
+        </DropdownMenuCheckboxItem>
+      </DropdownMenuContent>
+    </DropdownMenu>
+  );
+};
+
+export {
+  HeaderRoot,
+  HeaderWrapper,
+  HeaderTitle,
+  HeaderRightSection,
+  HeaderNavItem,
+  HeaderSearchDialog,
+  HeaderThemeSelector,
+};

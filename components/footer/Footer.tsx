@@ -2,7 +2,7 @@ import React from "react";
 
 import Link from "next/link";
 
-import { FooterLicenseContainer, FooterRoot, FooterText } from "./Footer.Partials";
+import { FooterLicenseContainer, FooterRoot, FooterText } from "@/components/footer/Footer.Partials";
 
 const Footer = () => {
   return (
@@ -12,7 +12,7 @@ const Footer = () => {
         alınan olayları yorumlama amacı taşımaz.
       </FooterText>
       <FooterLicenseContainer>
-        <FooterText>
+        <FooterText className="text-foreground">
           Tarihsever 2025 &mdash; Sitede yer alan içerikler{" "}
           <Link href="https://github.com/caganseyrek/tarihsever.com/blob/main/LICENSE" target="_blank">
             MIT lisansı

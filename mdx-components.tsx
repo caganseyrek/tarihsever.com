@@ -2,15 +2,19 @@ import React from "react";
 
 import type { MDXComponents } from "mdx/types";
 
-import { slugify } from "@/shared/utils";
+import ContentHeading from "@/components/content-heading/ContentHeading";
 
 export const useMDXComponents = (components: MDXComponents): MDXComponents => {
   return {
-    h1: ({ children }) => <h1 id={slugify(children as string)}>{children}</h1>,
-    h2: ({ children }) => <h2 id={slugify(children as string)}>{children}</h2>,
-    h3: ({ children }) => <h3 id={slugify(children as string)}>{children}</h3>,
-    h4: ({ children }) => <h4 id={slugify(children as string)}>{children}</h4>,
-    h5: ({ children }) => <h5 id={slugify(children as string)}>{children}</h5>,
+    h1: ({ children }) => (
+      <ContentHeading as="h1" hasAnchorLink={false}>
+        {children}
+      </ContentHeading>
+    ),
+    h2: ({ children }) => <ContentHeading as="h2">{children}</ContentHeading>,
+    h3: ({ children }) => <ContentHeading as="h3">{children}</ContentHeading>,
+    h4: ({ children }) => <ContentHeading as="h4">{children}</ContentHeading>,
+    h5: ({ children }) => <ContentHeading as="h5">{children}</ContentHeading>,
     ...components,
   };
 };

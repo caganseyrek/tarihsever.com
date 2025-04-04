@@ -5,7 +5,7 @@ import { Metadata } from "next";
 import { SearchIcon } from "lucide-react";
 
 import { Button } from "@/components/base/button";
-import BasePageLayout from "@/components/content-layout/ContentLayout";
+import BasePageLayout from "@/components/page-layout/PageLayout";
 import TarihseverIcon from "@/components/TarihseverIcon";
 
 export const metadata: Metadata = { title: "Ana Sayfa" };

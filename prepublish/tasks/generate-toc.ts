@@ -1,30 +1,12 @@
 import fs from "fs";
+import path from "path";
 
 import { slugify } from "@/shared/utils";
 
-/**
- * Represents a heading element in an article.
- * @property {string} text - The text of the heading.
- * @property {number} level - The level of the heading (e.g., 1 for h1, 2 for h2).
- */
-export interface HeadingProps {
-  text: string;
-  level: number;
-}
-
-/**
- * Represents a hierarchical heading node with children.
- * @property {string} id - The unique ID of the heading, generated using `slugify`.
- * @property {HeadingNodeProps[]} children - The nested subheadings.
- */
-export interface HeadingNodeProps extends HeadingProps {
-  id: string;
-  children: HeadingNodeProps[];
-}
+import { Globals } from "@/types/globals";
 
 class TOCGenerator {
-  // Table of contents regex to check if a content file has one
-  private static TOC_REGEX: RegExp = /^export const toc = [\s\S]*?;\n\n/;
+  private static HEADING_REGEX: Readonly<RegExp> = /^(#+)\s+(.*?)$/;
 
   /**
    * Generates a Table of Contents (TOC) for a given article file.
@@ -32,25 +14,23 @@ class TOCGenerator {
    * @param {string} articleFullPath - The full file path of the article.
    */
   public static generate(articleFullPath: string): void {
+    const articleDirectory: string = path.dirname(articleFullPath);
+    const articleFileBaseName: string = path.basename(articleFullPath, ".mdx");
+    const articleMetadataFilePath: string = path.join(articleDirectory, `${articleFileBaseName}.toc.ts`);
+
     // Read the file contents as string
     const fileContent: string = fs.readFileSync(articleFullPath, "utf8");
 
-    const parsedHeadings: HeadingProps[] = this.parseHeadings(fileContent);
-    const generatedNodes: HeadingNodeProps[] = this.generateTocNodes(parsedHeadings);
+    const parsedHeadings: Globals.Data.HeadingProps[] = this.parseHeadings(fileContent);
+    const generatedNodes: Globals.Data.HeadingNodeProps[] = this.generateTocNodes(parsedHeadings);
 
-    const tocString: string = `export const toc = ${JSON.stringify(generatedNodes, null, 2)};\n\n`;
-    let updatedContent: string;
+    const tocFileContent: string = `// This file is auto-generated
+import { Globals } from "@/types/globals";
 
-    // Check if file already have a toc
-    if (this.TOC_REGEX.test(fileContent)) {
-      // Replace the existing toc if file has one
-      updatedContent = fileContent.replace(this.TOC_REGEX, tocString);
-    } else {
-      // Add the toc at the start of the page if not
-      updatedContent = tocString + fileContent;
-    }
+export const toc: Globals.Data.HeadingNodeProps[] = ${JSON.stringify(generatedNodes, null, 2)};\n`;
+
     // Save the update file contents
-    fs.writeFileSync(articleFullPath, updatedContent, "utf8");
+    fs.writeFileSync(articleMetadataFilePath, tocFileContent, "utf8");
   }
 
   /**
@@ -59,14 +39,14 @@ class TOCGenerator {
    * @param {string} fileContent - The markdown file content.
    * @returns {HeadingProps[]} An array of parsed headings with their text and level.
    */
-  private static parseHeadings(fileContent: string): HeadingProps[] {
+  private static parseHeadings(fileContent: string): Globals.Data.HeadingProps[] {
     // Split the content string from the '\n' characters then filter the resulting array
     // to only include the elements that starts with # (headings)
     const headingsArray: string[] = fileContent.split("\n").filter((token) => token.startsWith("#"));
-    const parsedHeadings: HeadingProps[] = [];
+    const parsedHeadings: Globals.Data.HeadingProps[] = [];
 
     headingsArray.forEach((heading) => {
-      const match: RegExpMatchArray | null = heading.match(/^(#+)\s+(.*)$/);
+      const match: RegExpMatchArray | null = this.HEADING_REGEX.exec(heading);
       if (match) {
         // Get the heading level from the number of #s
         const level: number = match[1].length;
@@ -87,12 +67,12 @@ class TOCGenerator {
    * @param {HeadingProps[]} parsedHeadings - The list of parsed headings.
    * @returns {HeadingNodeProps[]} A hierarchical list of TOC nodes.
    */
-  private static generateTocNodes(parsedHeadings: HeadingProps[]): HeadingNodeProps[] {
-    const generatedNodes: HeadingNodeProps[] = [];
-    const stack: HeadingNodeProps[] = [];
+  private static generateTocNodes(parsedHeadings: Globals.Data.HeadingProps[]): Globals.Data.HeadingNodeProps[] {
+    const generatedNodes: Globals.Data.HeadingNodeProps[] = [];
+    const stack: Globals.Data.HeadingNodeProps[] = [];
 
     for (const heading of parsedHeadings) {
-      const node: HeadingNodeProps = {
+      const node: Globals.Data.HeadingNodeProps = {
         id: slugify(heading.text),
         text: heading.text,
         level: heading.level,

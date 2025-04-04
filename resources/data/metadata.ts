@@ -3,7 +3,7 @@ import { Metadata } from "next";
 import { WebSite } from "schema-dts";
 
 export const coreMetadata = {
-  base_url: "https://www.tarihsever.com/",
+  base_url: "https://www.tarihsever.com",
   name_or_title: "Tarihsever",
   description:
     "Tarihsever ile keşif çağından imparatorlukların çöküşüne kadar koloniyalizmin karmaşık ve çeşitli tarihini keşfedebilir ve kolonizasyonun kültürel, ekonomik ve politik sonuçları hakkında bilgi edinebilirsiniz.",

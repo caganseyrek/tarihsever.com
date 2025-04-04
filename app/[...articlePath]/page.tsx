@@ -2,41 +2,29 @@ import React from "react";
 
 import NotFoundPage from "@/app/not-found";
 
-import ContentLayout from "@/components/content-layout/ContentLayout";
+import ContentLayout from "@/components/page-layout/PageLayout";
 
-import { articleSet } from "@/prepublish/generated/article-set";
+import { articleSet } from "@/resources/generated/article-set";
 
-interface ArticlePageProps {
-  params: { articlePath?: string[] };
-}
-
-interface ArticlePageAsyncProps {
-  params: Promise<{ articlePath?: string[] }>;
-}
+import { Pages } from "@/types/globals";
 
 export const dynamicParams: boolean = true;
 
-export const generateStaticParams = (): ArticlePageProps["params"][] => {
+export const generateStaticParams = (): Pages.ArticlePageProps["params"][] => {
   return Array.from(articleSet).map((article) => ({ articlePath: article.split("/") }));
 };
 
-const ArticlePage = async ({ params }: ArticlePageAsyncProps) => {
+const ArticlePage = async ({ params }: Pages.ArticlePageAsyncProps) => {
   const awaitedPathElements: string[] = (await params).articlePath ?? [];
 
-  if (
-    awaitedPathElements.length !== 4 ||
-    awaitedPathElements[0] !== "konular" ||
-    !articleSet.has(awaitedPathElements.join("/"))
-  ) {
-    return <NotFoundPage />;
-  }
+  if (!articleSet.has(awaitedPathElements.join("/"))) return <NotFoundPage />;
   const filePath: string = awaitedPathElements.slice(1).join("/");
 
-  // FIXME toc doesnt seem to import when building
-  const { default: Contents } = await import(`@/resources/content/topics/${filePath}.mdx`);
+  const { default: Contents } = await import(`@/resources/content/${filePath}.mdx`);
+  const { toc } = await import(`@/resources/content/${filePath}.toc.ts`);
 
   return (
-    <ContentLayout tocObject={[]}>
+    <ContentLayout tocObject={toc}>
       <Contents />
     </ContentLayout>
   );
