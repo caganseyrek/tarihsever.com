@@ -2,9 +2,9 @@ import React from "react";
 
 import NotFoundPage from "@/app/not-found";
 
-import ContentLayout from "@/components/page-layout/PageLayout";
+import PageLayout from "@/components/layout/page-layout";
 
-import { articleSet } from "@/resources/generated/article-set";
+import { articleSet } from "@/content/generated/article-set";
 
 import { Pages } from "@/types/globals";
 
@@ -20,13 +20,13 @@ const ArticlePage = async ({ params }: Pages.ArticlePageAsyncProps) => {
   if (!articleSet.has(awaitedPathElements.join("/"))) return <NotFoundPage />;
   const filePath: string = awaitedPathElements.slice(1).join("/");
 
-  const { default: Contents } = await import(`@/resources/content/${filePath}.mdx`);
-  const { toc } = await import(`@/resources/content/${filePath}.toc.ts`);
+  const { default: Contents } = await import(`@/content/topics/${filePath}.mdx`);
+  const { toc } = await import(`@/content/topics/${filePath}.toc.ts`);
 
   return (
-    <ContentLayout tocObject={toc}>
+    <PageLayout tocObject={toc}>
       <Contents />
-    </ContentLayout>
+    </PageLayout>
   );
 };
 

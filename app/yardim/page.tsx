@@ -1,15 +1,15 @@
 import React from "react";
 
-import ContentLayout from "@/components/page-layout/PageLayout";
+import PageLayout from "@/components/layout/page-layout";
 
 const YardimPage = async () => {
-  const { default: Contents } = await import("@/resources/pages/yardim.mdx");
-  const { toc } = await import("@/resources/pages/yardim.toc");
+  const { default: Contents } = await import("@/content/pages/yardim.mdx");
+  const { toc } = await import("@/content/pages/yardim.toc");
 
   return (
-    <ContentLayout tocObject={toc}>
+    <PageLayout tocObject={toc}>
       <Contents />
-    </ContentLayout>
+    </PageLayout>
   );
 };
 

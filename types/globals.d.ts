@@ -19,6 +19,12 @@ export namespace Globals {
         articles: LinkProps[];
       }[];
     }
+    export interface ArticleTitleProps {
+      [key: string]: {
+        originalTitle: string;
+        formattedTitle: string;
+      };
+    }
     export interface ShortLinkProps {
       shortLinkCode: string;
       redirectsTo: string;
@@ -48,13 +54,14 @@ export namespace Components {
     children?: React.ReactNode;
     className?: string;
   }
-  export interface ContentLayoutProps extends Omit<BaseWrapperProps, "className"> {
+  export interface PageLayoutProps extends Pick<BaseWrapperProps, "children"> {
     tocObject: HeadingNodeProps[];
   }
+  export type PageLayoutWrapperProps = PageLayoutProps;
   export interface TarihseverIconProps {
     variant?: "small" | "large";
   }
-  export interface HeaderNavItemProps extends Omit<BaseWrapperProps, "children"> {
+  export interface HeaderNavItemProps extends Pick<BaseWrapperProps, "className"> {
     linkDetails: Globals.LinkProps;
   }
   export interface TableOfContentsProps {
@@ -95,7 +102,7 @@ export namespace Components {
       prefix: string;
       link: string;
     }
-    export interface BackToHeadingProps extends Omit<BaseWrapperProps, "children"> {
+    export interface BackToHeadingProps extends Pick<BaseWrapperProps, "className"> {
       sourceOrigin: string;
       hoverTitle: string;
     }
@@ -108,11 +115,11 @@ export namespace Components {
 }
 
 export namespace Workflows {
-  export namespace InitialPrepare {}
   export namespace Prepublish {
     export interface OutputFileProps {
-      navFileName: string;
-      setFileName: string;
+      articleNavFileName: string;
+      articleTitlesFileName: string;
+      articleSetFileName: string;
       shortLinkFileName: string;
     }
     export interface DirToProcessProps {
@@ -122,6 +129,7 @@ export namespace Workflows {
         addToArticleNav: boolean;
         generateShortLink: boolean;
         generateToc: boolean;
+        addSubheader: boolean;
       };
     }
   }

@@ -1,10 +1,10 @@
 import fs from "fs";
 import path from "path";
 
-import { Globals } from "@/types/globals";
-
 import PrepublishUtils from "@/prepublish/prepublish-utils";
 import Workflow from "@/prepublish/workflow";
+
+import { Globals } from "@/types/globals";
 
 class ShortLinkGenerator {
   private static shortLinks: Globals.Data.ShortLinkProps[] = [];
@@ -18,12 +18,6 @@ class ShortLinkGenerator {
   // Set of article that has short link to prevent duplicates.
   private static processedRedirectPaths: Set<string> = new Set();
 
-  /**
-   * Generates a new short link for a given file path.
-   * Ensures the generated code is unique.
-   * @param {string} fullPath - The full path of the article for which to generate a short link.
-   * @returns {void}
-   */
   public static generate(fullPath: string): void {
     const formattedPath: string = PrepublishUtils.parseFullArticlePath(fullPath);
 
@@ -43,18 +37,13 @@ class ShortLinkGenerator {
     this.shortLinks.push({ shortLinkCode: code, redirectsTo: formattedPath });
   }
 
-  /**
-   * Loads existing short links from a generated file to avoid duplicate short links.
-   * If the file does not exist, logs an error but does not interrupt execution.
-   * @returns {Promise<void>} A promise that resolves once existing short links are loaded.
-   */
   public static async loadExistingShortLinks(): Promise<void> {
     // Reset the short links array just in case
     this.shortLinks = [];
 
     // Try to read and parse existing short links
     try {
-      const { shortLinks } = await import("@/resources/generated/shortlinks");
+      const { shortLinks } = await import("@/content/generated/shortlinks");
 
       // Add existing short links to the lists to make sure we are not
       // generating a duplicate short link
@@ -69,12 +58,6 @@ class ShortLinkGenerator {
     }
   }
 
-  /**
-   * Saves the generated short links to a file.
-   * The file is auto-generated and should not be manually modified.
-   * @param {string} outputFileName - The name of the file to save the short links.
-   * @returns {void}
-   */
   public static saveShortLinks(outputFileName: string): void {
     // Save the generated article lookup set to the output set file
     const shortLinkFileContent: string = `// This file is auto-generated

@@ -5,7 +5,7 @@ import Workflow from "@/prepublish/workflow";
 
 class PrepublishUtils {
   // Content file's extensions
-  private static readonly ARTICLE_FILE_EXT: string = ".mdx";
+  public static readonly ARTICLE_FILE_EXT: string = ".mdx";
 
   /**
    * Recursively walks through a directory and applies an operation to each file with the specified extension.
@@ -17,7 +17,7 @@ class PrepublishUtils {
     // Return if the specified path does not exists
     if (!fs.existsSync(dirPath)) {
       // eslint-disable-next-line no-console
-      console.log(dirPath + " not found.");
+      console.log(`Directory '${dirPath}' not found`);
       return;
     }
     // Read all the files in the specified directory
@@ -42,17 +42,19 @@ class PrepublishUtils {
    * @param {string} articleFullPath - The full path of the article file.
    * @returns {string} - The parsed relative path with a modified prefix.
    */
-  public static parseFullArticlePath(articleFullPath: string): string {
+  public static parseFullArticlePath(articleFullPath: string, omitPrefix?: boolean): string {
     // Get relative path from the full path, normalize the path string, and remove the file extension
     const relativePath: string = path
-      .relative(Workflow.resourcesDirectory, articleFullPath)
+      .relative(Workflow.contentDirectory, articleFullPath)
       .replace(/\\/g, "/")
       .replace(this.ARTICLE_FILE_EXT, "");
 
     // The relative path currently starts with 'topics/'
-    // In here we replace the 'topics/' prefix with the 'konular/' prefix
+    // In here we replace the 'topics/' prefix with the 'konular/' prefix if the path is not a page's path
     const pathArray: string[] = relativePath.split("/").slice(1);
-    pathArray.unshift("konular");
+    if (!omitPrefix) {
+      pathArray.unshift("konular");
+    }
     return pathArray.join("/");
   }
 }

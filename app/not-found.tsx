@@ -6,7 +6,7 @@ import Link from "next/link";
 import { ArrowLeft } from "lucide-react";
 
 import { Button } from "@/components/base/button";
-import TarihseverIcon from "@/components/TarihseverIcon";
+import TarihseverIcon from "@/components/tarihsever-icon";
 
 export const metadata: Metadata = { title: "Sayfa bulunamadı" };
 

@@ -1,21 +1,17 @@
 import fs from "fs";
 import path from "path";
 
+import PrepublishUtils from "@/prepublish/prepublish-utils";
+
+import Regex from "@/shared/regex";
 import { slugify } from "@/shared/utils";
 
 import { Globals } from "@/types/globals";
 
 class TOCGenerator {
-  private static readonly HEADING_REGEX: RegExp = /^(#+)\s+(.*?)$/;
-
-  /**
-   * Generates a Table of Contents (TOC) for a given article file.
-   * If a TOC already exists, it will be updated; otherwise, a new one is added at the start.
-   * @param {string} articleFullPath - The full file path of the article.
-   */
   public static generate(articleFullPath: string): void {
     const articleDirectory: string = path.dirname(articleFullPath);
-    const articleFileBaseName: string = path.basename(articleFullPath, ".mdx");
+    const articleFileBaseName: string = path.basename(articleFullPath, PrepublishUtils.ARTICLE_FILE_EXT);
     const articleMetadataFilePath: string = path.join(articleDirectory, `${articleFileBaseName}.toc.ts`);
 
     // Read the file contents as string
@@ -33,12 +29,6 @@ export const toc: Globals.Data.HeadingNodeProps[] = ${JSON.stringify(generatedNo
     fs.writeFileSync(articleMetadataFilePath, tocFileContent, "utf8");
   }
 
-  /**
-   * Retrieves and parses the headings from the file content.
-   * @private
-   * @param {string} fileContent - The markdown file content.
-   * @returns {HeadingProps[]} An array of parsed headings with their text and level.
-   */
   private static parseHeadings(fileContent: string): Globals.Data.HeadingProps[] {
     // Split the content string from the '\n' characters then filter the resulting array
     // to only include the elements that starts with # (headings)
@@ -46,7 +36,7 @@ export const toc: Globals.Data.HeadingNodeProps[] = ${JSON.stringify(generatedNo
     const parsedHeadings: Globals.Data.HeadingProps[] = [];
 
     headingsArray.forEach((heading) => {
-      const match: RegExpMatchArray | null = this.HEADING_REGEX.exec(heading);
+      const match: RegExpMatchArray | null = Regex.HEADING_REGEX.exec(heading);
       if (match) {
         // Get the heading level from the number of #s
         const level: number = match[1].length;
@@ -61,12 +51,6 @@ export const toc: Globals.Data.HeadingNodeProps[] = ${JSON.stringify(generatedNo
     return parsedHeadings;
   }
 
-  /**
-   * Converts a flat list of headings into a hierarchical TOC structure.
-   * @private
-   * @param {HeadingProps[]} parsedHeadings - The list of parsed headings.
-   * @returns {HeadingNodeProps[]} A hierarchical list of TOC nodes.
-   */
   private static generateTocNodes(parsedHeadings: Globals.Data.HeadingProps[]): Globals.Data.HeadingNodeProps[] {
     const generatedNodes: Globals.Data.HeadingNodeProps[] = [];
     const stack: Globals.Data.HeadingNodeProps[] = [];

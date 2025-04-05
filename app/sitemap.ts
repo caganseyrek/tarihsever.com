@@ -1,7 +1,7 @@
 import type { MetadataRoute } from "next";
 
-import { coreMetadata } from "@/resources/data/metadata";
-import { articleNav } from "@/resources/generated/article-nav";
+import { coreMetadata } from "@/content/data/metadata";
+import { articleNav } from "@/content/generated/article-nav";
 
 export const sitemap = (): MetadataRoute.Sitemap => {
   return [

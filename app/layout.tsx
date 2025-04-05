@@ -2,11 +2,11 @@ import React from "react";
 
 import { Metadata } from "next";
 
-import { ThemeProvider } from "next-themes";
+import ThemeProvider from "@/components/theme/theme-provider";
+
+import { headMetadata, jsonLd } from "@/content/data/metadata";
 
 import "@/shared/styles/globals.css";
-
-import { headMetadata, jsonLd } from "@/resources/data/metadata";
 
 import { Components } from "@/types/globals";
 
@@ -31,9 +31,7 @@ const RootLayout = ({ children }: Components.BaseWrapperProps) => {
         />
       </head>
       <body>
-        <ThemeProvider attribute="class" defaultTheme="dark" disableTransitionOnChange>
-          {children}
-        </ThemeProvider>
+        <ThemeProvider>{children}</ThemeProvider>
       </body>
     </html>
   );
