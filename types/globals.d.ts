@@ -19,7 +19,7 @@ export namespace Globals {
         articles: LinkProps[];
       }[];
     }
-    export interface ArticleTitleProps {
+    export interface TitleProps {
       [key: string]: {
         originalTitle: string;
         formattedTitle: string;
@@ -118,7 +118,7 @@ export namespace Workflows {
   export namespace Prepublish {
     export interface OutputFileProps {
       articleNavFileName: string;
-      articleTitlesFileName: string;
+      titlesFileName: string;
       articleSetFileName: string;
       shortLinkFileName: string;
     }

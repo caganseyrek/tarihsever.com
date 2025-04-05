@@ -104,13 +104,13 @@ body {
     @apply text-3xl font-medium tracking-tight [&_a]:text-foreground [&_a]:no-underline;
   }
   article h2 {
-    @apply text-xl font-medium tracking-tight mt-4 [&_a]:text-foreground [&_a]:no-underline;
+    @apply text-2xl font-medium tracking-tight [&_a]:text-foreground [&_a]:no-underline mt-4 border-b pb-2;
   }
   article h3 {
-    @apply text-lg font-medium tracking-tight mt-4 [&_a]:text-foreground [&_a]:no-underline;
+    @apply text-lg font-medium tracking-tight [&_a]:text-foreground [&_a]:no-underline mt-4;
   }
   article h4 {
-    @apply font-medium tracking-tight mt-4;
+    @apply font-medium tracking-tight [&_a]:text-foreground [&_a]:no-underline mt-4;
   }
   article p {
     @apply m-0 p-0 text-pretty dark:text-muted-foreground;
@@ -121,9 +121,17 @@ body {
   article ol {
     @apply list-decimal px-6;
   }
+  article ol,
+  article ul {
+    @apply flex flex-col items-start justify-start gap-1;
+  }
   article ul li,
   article ol li {
-    @apply text-muted-foreground marker:text-foreground [&>strong]:text-foreground [&>strong]:font-medium;
+    @apply text-muted-foreground marker:text-foreground [&_strong]:text-foreground [&_strong]:font-medium;
+  }
+  article ul li > div,
+  article ol li > div {
+    @apply flex flex-col items-start justify-start gap-2;
   }
   article blockquote {
     @apply border border-l-[0.4rem] bg-container-background rounded-md p-3;

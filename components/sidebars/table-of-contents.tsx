@@ -21,7 +21,7 @@ const TableOfContents = ({ tocObject }: Components.TableOfContentsProps) => {
       <SidebarContent className="sticky top-4 gap-1">
         <SidebarGroup>
           <SidebarGroupLabel>İçindekiler</SidebarGroupLabel>
-          <SidebarGroupContent>
+          <SidebarGroupContent className="max-h-[calc(100dvh-4.5rem)] overflow-scroll">
             {tocObject.map((node) => {
               const parsedText: string = slugify(node.text);
               return (

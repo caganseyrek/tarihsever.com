@@ -12,13 +12,8 @@ export const mainMenuLinks: Globals.LinkProps[] = [
     path: "/sozluk",
   },
   {
-    key: "katki-rehberi",
-    title: "Katkı Rehberi",
-    path: "/katki-rehberi",
-  },
-  {
-    key: "yardim",
-    title: "Yardım",
-    path: "/yardim",
+    key: "site-rehberi",
+    title: "Site Rehberi",
+    path: "/site-rehberi",
   },
 ];

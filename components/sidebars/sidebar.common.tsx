@@ -21,7 +21,7 @@ const SidebarRoot = ({ children, className }: Components.BaseWrapperProps) => {
 };
 
 const SidebarContent = ({ children, className }: Components.BaseWrapperProps) => {
-  return <div className={cn("w-full max-w-full min-h-0 gap-8 overflow-auto", FLEX_STYLES, className)}>{children}</div>;
+  return <div className={cn("w-full max-w-full min-h-0 gap-8", FLEX_STYLES, className)}>{children}</div>;
 };
 
 const SidebarGroup = ({ children, className }: Components.BaseWrapperProps) => {

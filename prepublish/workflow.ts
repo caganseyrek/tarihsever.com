@@ -9,6 +9,8 @@ import ArticleProcessor from "@/prepublish/tasks/process-articles";
 
 import { Workflows } from "@/types/globals";
 
+import TitleGenerator from "./tasks/generate-titles";
+
 class Workflow {
   // The root directory containing content files
   public static readonly contentDirectory: string = path.join(process.cwd(), "content");
@@ -19,7 +21,7 @@ class Workflow {
   // Filenames for generated output files
   private static readonly outputFiles: Workflows.Prepublish.OutputFileProps = {
     articleNavFileName: "article-nav.ts",
-    articleTitlesFileName: "article-titles.ts",
+    titlesFileName: "article-titles.ts",
     articleSetFileName: "article-set.ts",
     shortLinkFileName: "shortlinks.ts",
   };
@@ -60,15 +62,15 @@ class Workflow {
     // Try to load existing short links to prevent duplicate generation
     await ShortLinkGenerator.loadExistingShortLinks();
 
-    // Try to load existing article titles to prevent unnecessary overrides
-    await ArticleProcessor.loadExistingArticleTitles();
+    // Try to load existing titles to prevent unnecessary overrides
+    await TitleGenerator.loadExistingTitles();
 
     let passedTitleGeneration: boolean = true;
     // We generate titles first because later, while iterating the dirsToProcess,
-    // we use these titles for generating an article nav
+    // we use these titles for generating an article-nav
     PrepublishUtils.walkDirectory(path.join(this.contentDirectory, "topics"), (currentArticleFullPath) => {
-      const generationResult: boolean = ArticleProcessor.generateTitles(currentArticleFullPath);
-      ArticleProcessor.saveArticleTitles(this.outputFiles.articleTitlesFileName);
+      const generationResult: boolean = TitleGenerator.generate(currentArticleFullPath);
+      TitleGenerator.saveTitles(this.outputFiles.titlesFileName);
 
       if (generationResult === false && passedTitleGeneration === true) {
         passedTitleGeneration = false;
@@ -112,8 +114,8 @@ After that, you can re-run 'pnpm prepublish'
     });
 
     // Save the generated data files
+    TitleGenerator.saveTitles(this.outputFiles.titlesFileName);
     ArticleProcessor.saveArticleNav(this.outputFiles.articleNavFileName);
-    ArticleProcessor.saveArticleTitles(this.outputFiles.articleTitlesFileName);
     ArticleProcessor.saveArticleSet(this.outputFiles.articleSetFileName);
     ShortLinkGenerator.saveShortLinks(this.outputFiles.shortLinkFileName);
 
