@@ -16,12 +16,13 @@ class JaroDistance {
     const len1: number = str1.length;
     const len2: number = str2.length;
 
-    const window = Math.floor(Math.max(len1 / len2) / 2) - 1;
+    const window = Math.floor(Math.max(len1, len2) / 2) - 1; // Fixed window size calculation
     let match: number = 0;
 
-    const hash1 = new Array(len1);
-    const hash2 = new Array(len2);
+    const hash1 = new Array(len1).fill(0);
+    const hash2 = new Array(len2).fill(0);
 
+    // Find matching characters
     for (let i: number = 0; i < len1; i++) {
       for (let j: number = Math.max(0, i - window); j < Math.min(len2, i + window + 1); j++) {
         if (str1[i] === str2[j] && hash2[j] === 0) {
@@ -34,18 +35,20 @@ class JaroDistance {
     }
     if (match === 0) return 0.0;
 
+    // Calculate transpositions
     let transpositions: number = 0;
     let point: number = 0;
 
     for (let i: number = 0; i < len1; i++) {
       if (hash1[i]) {
         while (hash2[point] === 0) point++;
-        if (str1[i] !== str2[point++]) transpositions++;
+        if (str1[i] !== str2[point]) transpositions++;
+        point++;
       }
     }
-
     transpositions /= 2;
-    return (match / len1 + match / len2 + (match - transpositions) / match) / 3.0;
+
+    return (match / len1 + match / len2 + (match > 0 ? (match - transpositions) / match : 0)) / 3.0;
   }
 }
 

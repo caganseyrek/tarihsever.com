@@ -1,8 +1,8 @@
-import { searchIndex } from "@/resources/generated/search-index";
+import { tokenize } from "@/shared/archive/internal-search/internal-search-utils";
+import BM25, { ScoreProps } from "@/shared/archive/internal-search/processor/bm25";
+import JaroWinkler from "@/shared/archive/internal-search/processor/jaroWinkler";
 
-import BM25, { ScoreProps } from "./core/bm25";
-import JaroWinkler from "./core/jaroWinkler";
-import { tokenize } from "./tokenizer";
+import { searchIndex } from "@/content/data/generated/search-index";
 
 class Searcher {
   private constructor() {}
