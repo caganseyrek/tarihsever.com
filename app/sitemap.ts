@@ -1,25 +1,25 @@
 import type { MetadataRoute } from "next";
 
 import { coreMetadata } from "@/contents/data/site-metadata";
-import { articleNav } from "@/contents/generated/article-nav";
+import { articleSet } from "@/contents/generated/article-set";
 
 export const sitemap = (): MetadataRoute.Sitemap => {
   return [
     {
       url: coreMetadata.base_url,
-      lastModified: "2025-04-04",
+      lastModified: new Date(),
     },
     {
       url: coreMetadata.base_url + "/sozluk",
-      lastModified: "2025-04-04",
+      lastModified: new Date(),
     },
     {
       url: coreMetadata.base_url + "/yardim",
-      lastModified: "2025-04-04",
+      lastModified: new Date(),
     },
-    ...articleNav.map((article) => ({
-      url: coreMetadata.base_url + "/" + article.path,
-      lastModified: "2025-04-04",
+    ...Array.from(articleSet).map((article) => ({
+      url: coreMetadata.base_url + "/" + article,
+      lastModified: new Date(),
     })),
   ];
 };
