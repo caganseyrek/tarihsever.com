@@ -4,7 +4,7 @@ import path from "path";
 import PrepublishUtils from "@/prepublish/prepublish-utils";
 import Workflow from "@/prepublish/workflow";
 
-import { Globals } from "@/types/globals";
+import type { Globals } from "@/types/globals";
 
 class ShortLinkGenerator {
   private static shortLinks: Globals.Data.ShortLinkProps[] = [];
@@ -43,7 +43,7 @@ class ShortLinkGenerator {
 
     // Try to read and parse existing short links
     try {
-      const { shortLinks } = await import("@/content/generated/shortlinks");
+      const { shortLinks } = await import("@/contents/generated/shortlinks");
 
       // Add existing short links to the lists to make sure we are not
       // generating a duplicate short link
@@ -61,7 +61,7 @@ class ShortLinkGenerator {
   public static saveShortLinks(outputFileName: string): void {
     // Save the generated article lookup set to the output set file
     const shortLinkFileContent: string = `// This file is auto-generated
-import { Globals } from "@/types/globals";
+import type { Globals } from "@/types/globals";
 
 export const shortLinks: Globals.Data.ShortLinkProps[] = ${JSON.stringify(this.shortLinks, null, 2)};\n`;
     fs.writeFileSync(path.join(Workflow.outputDirectory, outputFileName), shortLinkFileContent, "utf8");

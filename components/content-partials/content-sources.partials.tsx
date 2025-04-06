@@ -6,7 +6,7 @@ import { ArrowUp } from "lucide-react";
 
 import { cn, slugify } from "@/shared/utils";
 
-import { Components } from "@/types/globals";
+import type { Components } from "@/types/globals";
 
 const SourcesContainer = ({ children, className }: Components.BaseWrapperProps) => {
   return <ol className={cn("flex flex-col items-start justify-start gap-6 list-inside p-0", className)}>{children}</ol>;
@@ -35,9 +35,9 @@ const SourcesLinkContainerItem = ({ prefix, link }: Components.MDX.SourcesLinkCo
   );
 };
 
-const BackToHeading = ({ className, sourceOrigin, hoverTitle }: Components.MDX.BackToHeadingProps) => {
+const BackToHeading = ({ className, sourceOrigin, label }: Components.MDX.BackToHeadingProps) => {
   return (
-    <Link href={"#" + slugify(sourceOrigin)} title={hoverTitle} className={cn("mx-0.5 px-1", className)}>
+    <Link href={"#" + slugify(sourceOrigin)} title={label} className={cn("mx-0.5 px-1", className)}>
       <ArrowUp className="size-4.5 mb-0.5 inline text-foreground hover:text-primary transition-colors" />
     </Link>
   );

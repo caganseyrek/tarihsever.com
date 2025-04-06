@@ -130,7 +130,7 @@ export const articleSet: Set<string> = new Set(${JSON.stringify([...this.article
   public static saveArticleNav(outputFileName: string): void {
     // Prevent sorting during JSON.stringify by adding a replacer function that does not alter the order
     const navFileContent: string = `// This file is auto-generated
-import { Globals } from "@/types/globals";
+import type { Globals } from "@/types/globals";
 
 export const articleNav: Globals.Data.ArticleNavProps[] = ${JSON.stringify(
       this.articleNav,

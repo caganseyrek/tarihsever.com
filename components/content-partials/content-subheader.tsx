@@ -2,9 +2,9 @@ import React from "react";
 
 import { Breadcrumbs, ShareDialog, SubheaderRoot } from "@/components/content-partials/content-subheader.partials";
 
-import { shortLinks } from "@/content/generated/shortlinks";
+import type { Components, Globals } from "@/types/globals";
 
-import { Components, Globals } from "@/types/globals";
+import { shortLinks } from "@/contents/generated/shortlinks";
 
 const ContentSubheader = ({ breadcrumbs, pagePath }: Components.ContentSubheaderProps) => {
   const shortLinkCode: Globals.Data.ShortLinkProps[] | undefined = shortLinks.filter(

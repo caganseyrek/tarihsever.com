@@ -4,26 +4,25 @@ import path from "path";
 
 import PrepublishUtils from "@/prepublish/prepublish-utils";
 import ShortLinkGenerator from "@/prepublish/tasks/generate-shortlinks";
+import TitleGenerator from "@/prepublish/tasks/generate-titles";
 import TOCGenerator from "@/prepublish/tasks/generate-toc";
 import ArticleProcessor from "@/prepublish/tasks/process-articles";
 
 import { Workflows } from "@/types/globals";
 
-import TitleGenerator from "./tasks/generate-titles";
-
 class Workflow {
   // The root directory containing content files
-  public static readonly contentDirectory: string = path.join(process.cwd(), "content");
+  public static readonly contentDirectory: string = path.join(process.cwd(), "contents");
 
   // The directory where generated output files are stored
-  public static readonly outputDirectory: string = path.join(process.cwd(), "content", "generated");
+  public static readonly outputDirectory: string = path.join(process.cwd(), "contents", "generated");
 
   // Filenames for generated output files
   private static readonly outputFiles: Workflows.Prepublish.OutputFileProps = {
     articleNavFileName: "article-nav.ts",
-    titlesFileName: "article-titles.ts",
     articleSetFileName: "article-set.ts",
     shortLinkFileName: "shortlinks.ts",
+    titlesFileName: "titles.ts",
   };
 
   // List of directories to process, with associated processing options

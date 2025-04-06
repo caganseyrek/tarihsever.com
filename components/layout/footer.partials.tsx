@@ -1,8 +1,10 @@
 import React from "react";
 
+import Link from "next/link";
+
 import { cn } from "@/shared/utils";
 
-import { Components } from "@/types/globals";
+import type { Components } from "@/types/globals";
 
 const FooterRoot = ({ children, className }: Components.BaseWrapperProps) => {
   return (
@@ -33,4 +35,19 @@ const FooterLicenseContainer = ({ children, className }: Components.BaseWrapperP
   );
 };
 
-export { FooterRoot, FooterText, FooterLicenseContainer };
+const FooterLicenseText = ({ className }: Components.FooterTextProps) => {
+  return (
+    <>
+      Tarihsever 2025 &mdash; Sitede yer alan içerikler{" "}
+      <Link
+        href="https://github.com/caganseyrek/tarihsever.com/blob/main/LICENSE"
+        target="_blank"
+        className={cn(className)}>
+        MIT lisansı
+      </Link>{" "}
+      altındadır
+    </>
+  );
+};
+
+export { FooterRoot, FooterText, FooterLicenseContainer, FooterLicenseText };

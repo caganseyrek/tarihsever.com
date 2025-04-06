@@ -4,7 +4,7 @@ import { SidebarGroupSub, SidebarItem as SidebarGroupSubItem } from "@/component
 
 import { slugify } from "@/shared/utils";
 
-import { Globals } from "@/types/globals";
+import type { Globals } from "@/types/globals";
 
 const renderHeadingNodes = (nodes: Globals.Data.HeadingNodeProps[]) => {
   return nodes.map((node) => {

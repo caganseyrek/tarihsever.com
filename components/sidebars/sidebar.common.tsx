@@ -6,13 +6,7 @@ import { Button } from "@/components/base/button";
 
 import { cn } from "@/shared/utils";
 
-import { Components } from "@/types/globals";
-
-type SidebarItemProps = {
-  className?: string;
-  children?: string;
-  link: string;
-};
+import type { Components } from "@/types/globals";
 
 const FLEX_STYLES: string = "flex flex-col items-start justify-start";
 
@@ -48,7 +42,7 @@ const SidebarGroupSub = ({ children, className }: Components.BaseWrapperProps) =
   return <div className={cn("border-l ml-3 pl-1.5 mb-2 w-[calc(100%-12px)]", className)}>{children}</div>;
 };
 
-const SidebarItem = ({ link, children, className }: SidebarItemProps): React.ReactNode => {
+const SidebarItem = ({ link, children, className }: Components.SidebarItemProps): React.ReactNode => {
   return (
     <Link href={link}>
       <Button

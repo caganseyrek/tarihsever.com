@@ -2,9 +2,9 @@
 
 import { ReadonlyURLSearchParams, useRouter, useSearchParams } from "next/navigation";
 
-import { shortLinks } from "@/content/generated/shortlinks";
+import type { Globals } from "@/types/globals";
 
-import { Globals } from "@/types/globals";
+import { shortLinks } from "@/contents/generated/shortlinks";
 
 const ShortlinkPage = () => {
   const router = useRouter();

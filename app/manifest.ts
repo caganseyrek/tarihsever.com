@@ -1,6 +1,6 @@
-import { type MetadataRoute } from "next";
+import type { MetadataRoute } from "next";
 
-import { coreMetadata } from "@/content/data/metadata";
+import { coreMetadata } from "@/contents/data/site-metadata";
 
 const manifest = (): MetadataRoute.Manifest => {
   return {

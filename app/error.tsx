@@ -2,32 +2,38 @@
 
 import React from "react";
 
-import { Metadata } from "next";
+import type { Metadata } from "next";
 import Link from "next/link";
 
 import { ArrowLeft } from "lucide-react";
 
 import { Button } from "@/components/base/button";
-import TarihseverIcon from "@/components/tarihsever-icon";
+import TarihseverIcon from "@/components/branding/tarihsever-icon";
+import {
+  CustomPageContainer,
+  CustomPageDescription,
+  CustomPageRoot,
+  CustomPageTitle,
+} from "@/components/custom-page.partials";
 
 export const metadata: Metadata = { title: "Bir hata oluştu..." };
 
 const ErrorPage = () => {
   return (
-    <div className="w-[100vw] h-[100vh] flex items-center justify-center">
-      <div className="flex flex-col items-center justify-center gap-3 pb-[70px]">
+    <CustomPageRoot>
+      <CustomPageContainer>
         <TarihseverIcon variant="large" />
-        <h1 className="text-2xl font-semibold tracking-tight">Teknik Tarih Arası...</h1>
-        <div className="text-muted-foreground">
+        <CustomPageTitle>Teknik Tarih Arası...</CustomPageTitle>
+        <CustomPageDescription>
           Beklenmedik teknik bir hata ile karşılaştık, ancak endişe edecek bir durum yok.
-        </div>
+        </CustomPageDescription>
         <Link href="/">
           <Button>
             <ArrowLeft /> Ana Sayfaya Dön
           </Button>
         </Link>
-      </div>
-    </div>
+      </CustomPageContainer>
+    </CustomPageRoot>
   );
 };
 

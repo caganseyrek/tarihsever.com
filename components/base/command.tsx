@@ -13,7 +13,7 @@ const Command = React.forwardRef<
 >(({ className, ...props }, ref) => (
   <CommandComponent
     ref={ref}
-    className={cn("flex h-full w-full flex-col overflow-hidden rounded-md bg-container-background", className)}
+    className={cn("flex h-full w-full flex-col overflow-hidden rounded-[7px] bg-container-background", className)}
     {...props}
   />
 ));
@@ -87,7 +87,7 @@ const CommandItem = React.forwardRef<
   <CommandComponent.Item
     ref={ref}
     className={cn(
-      "flex items-center cursor-pointer gap-2 select-none rounded-sm h-9 px-3 py-2.5 text-sm outline-none",
+      "flex items-center cursor-pointer gap-2 select-none rounded-sm h-9 px-3 py-2.5 text-sm",
       "text-muted-foreground hover:bg-primary-hover-background hover:text-primary-lighter",
       "data-[disabled=true]:pointer-events-none",
       "data-[selected=true]:bg-primary-hover-background data-[selected=true]:text-primary-lighter",

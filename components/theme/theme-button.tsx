@@ -7,18 +7,24 @@ import { useTheme } from "next-themes";
 
 import { Button } from "@/components/base/button";
 
-const ThemeButton = () => {
+import { cn } from "@/shared/utils";
+
+import type { Components } from "@/types/globals";
+
+const ThemeButton = ({ className }: Components.SearchDialogInputProps) => {
   const [mounted, setMounted] = React.useState<boolean>(false);
   const { resolvedTheme, setTheme } = useTheme();
 
   React.useEffect(() => setMounted(true), []);
   if (!mounted) {
-    return <div className="bg-container-inner-item-background size-9 min-w-9 rounded-md">&nbsp;</div>;
+    return (
+      <div className={cn("border bg-container-inner-item-background size-9 min-w-9 rounded-md", className)}>&nbsp;</div>
+    );
   }
 
   return (
     <Button
-      className="bg-container-inner-item-background border-0"
+      className={cn("bg-container-inner-item-background", className)}
       onClick={() => setTheme(resolvedTheme === "dark" ? "light" : "dark")}>
       {resolvedTheme === "dark" ? (
         <>

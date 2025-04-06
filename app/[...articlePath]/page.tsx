@@ -4,9 +4,9 @@ import NotFoundPage from "@/app/not-found";
 
 import PageLayout from "@/components/layout/page-layout";
 
-import { articleSet } from "@/content/generated/article-set";
+import type { Pages } from "@/types/globals";
 
-import { Pages } from "@/types/globals";
+import { articleSet } from "@/contents/generated/article-set";
 
 export const dynamicParams: boolean = true;
 
@@ -20,8 +20,8 @@ const ArticlePage = async ({ params }: Pages.ArticlePageAsyncProps) => {
   if (!articleSet.has(awaitedPathElements.join("/"))) return <NotFoundPage />;
   const filePath: string = awaitedPathElements.slice(1).join("/");
 
-  const { default: Contents } = await import(`@/content/topics/${filePath}.mdx`);
-  const { toc } = await import(`@/content/topics/${filePath}.toc.ts`);
+  const { default: Contents } = await import(`@/contents/topics/${filePath}.mdx`);
+  const { toc } = await import(`@/contents/topics/${filePath}.toc.ts`);
 
   return (
     <PageLayout tocObject={toc}>

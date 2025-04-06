@@ -4,7 +4,7 @@ import React from "react";
 
 import { ThemeProvider as NextThemesProvider } from "next-themes";
 
-import { Components } from "@/types/globals";
+import type { Components } from "@/types/globals";
 
 const ThemeProvider = ({ children }: Components.BaseWrapperProps) => {
   return (

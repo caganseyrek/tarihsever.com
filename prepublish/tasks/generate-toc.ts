@@ -6,7 +6,7 @@ import PrepublishUtils from "@/prepublish/prepublish-utils";
 import Regex from "@/shared/regex";
 import { slugify } from "@/shared/utils";
 
-import { Globals } from "@/types/globals";
+import type { Globals } from "@/types/globals";
 
 class TOCGenerator {
   public static generate(articleFullPath: string): void {
@@ -21,7 +21,7 @@ class TOCGenerator {
     const generatedNodes: Globals.Data.HeadingNodeProps[] = this.generateTocNodes(parsedHeadings);
 
     const tocFileContent: string = `// This file is auto-generated
-import { Globals } from "@/types/globals";
+import type { Globals } from "@/types/globals";
 
 export const toc: Globals.Data.HeadingNodeProps[] = ${JSON.stringify(generatedNodes, null, 2)};\n`;
 

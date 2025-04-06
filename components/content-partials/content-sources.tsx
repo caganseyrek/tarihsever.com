@@ -8,7 +8,7 @@ import {
   SourcesLinkContainerItem,
 } from "@/components/content-partials/content-sources.partials";
 
-import { Components } from "@/types/globals";
+import type { Components } from "@/types/globals";
 
 const ContentSources = ({ sources }: Components.MDX.ContentSourcesProps) => {
   return (
@@ -17,12 +17,12 @@ const ContentSources = ({ sources }: Components.MDX.ContentSourcesProps) => {
       <SourcesContainer>
         {sources.map((source) => (
           <SourcesContainerItem key={source.sourceName} id={source.sourceAnchor}>
-            <BackToHeading sourceOrigin={source.sourceOrigin} hoverTitle="Kaynağın bulunduğu başlığa dön" />
+            <BackToHeading sourceOrigin={source.sourceOrigin} label="Kaynağın bulunduğu başlığa dön" />
             <strong>{source.sourceName}</strong> &mdash; {source.sourceWebsiteName}
             <SourcesLinkContainer>
-              <SourcesLinkContainerItem prefix={"Link:"} link={source.links.sourceWebsiteLink} />
+              <SourcesLinkContainerItem prefix="Link:" link={source.links.sourceWebsiteLink} />
               {source.links.historicalDocument && (
-                <SourcesLinkContainerItem prefix={"Tarihi Döküman:"} link={source.links.historicalDocument} />
+                <SourcesLinkContainerItem prefix="Tarihi Döküman:" link={source.links.historicalDocument} />
               )}
             </SourcesLinkContainer>
           </SourcesContainerItem>

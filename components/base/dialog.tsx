@@ -17,7 +17,7 @@ const DialogClose = React.forwardRef<React.ComponentRef<typeof Close>, React.Com
       ref={ref}
       className={cn(
         "rounded-sm cursor-pointer text-muted-foreground hover:text-foreground transition-colors",
-        "focus:outline-hidden focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:pointer-events-none data-[state=open]:bg-accent data-[state=open]:text-muted-foreground",
+        "disabled:pointer-events-none data-[state=open]:bg-accent data-[state=open]:text-muted-foreground",
         className,
       )}
       {...props}>

@@ -9,20 +9,19 @@
 }
 
 :root {
-  --background: 0, 0%, 9%;
+  --background: 0, 0%, 96%;
 
-  --foreground: 0, 0%, 96%;
-  --muted-foreground: 0, 0%, 76%;
+  --foreground: 0, 0%, 9%;
+  --muted-foreground: 0, 0%, 7%;
 
   --primary: 34, 68%, 53%;
-  --primary-lighter: 34, 90%, 81%;
-  --primary-hover-background: 35, 23%, 15%;
+  --primary-lighter: 33, 60%, 22%;
+  --primary-hover-background: 34, 58%, 83%;
 
-  --container-background: 0, 0%, 11%;
-  --container-border: 0, 0%, 18%;
-  --container-inner-item-background: 0, 0%, 17%;
+  --container-background: 0, 0%, 93%;
+  --container-border: 0, 0%, 84%;
+  --container-inner-item-background: 0, 0%, 89%;
 
-  --container-ring: 0, 0%, 3.9%;
   --radius: 0.5rem;
 }
 .dark {
@@ -37,9 +36,7 @@
 
   --container-background: 0, 0%, 11%;
   --container-border: 0, 0%, 18%;
-  --container-inner-item-background: 0, 0%, 17%;
-
-  --container-ring: 0, 0%, 3.9%;
+  --container-inner-item-background: 0, 0%, 14%;
 }
 
 @theme {
@@ -61,29 +58,9 @@
   --color-container-border: hsl(var(--container-border));
   --color-container-inner-item-background: hsl(var(--container-inner-item-background));
 
-  --color-container-ring: hsl(var(--container-ring));
-
   --radius-lg: var(--radius);
   --radius-md: calc(var(--radius) - 2px);
   --radius-sm: calc(var(--radius) - 4px);
-}
-
-/*
-  The default border color has changed to `currentcolor` in Tailwind CSS v4,
-  so we've added these compatibility styles to make sure everything still
-  looks the same as it did with Tailwind CSS v3.
-
-  If we ever want to remove these styles, we need to add an explicit border
-  color utility to any element that depends on these defaults.
-*/
-@layer base {
-  *,
-  ::after,
-  ::before,
-  ::backdrop,
-  ::file-selector-button {
-    border-color: var(--color-gray-200, currentcolor);
-  }
 }
 
 * {

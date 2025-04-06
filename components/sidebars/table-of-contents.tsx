@@ -13,7 +13,7 @@ import { renderHeadingNodes } from "@/components/sidebars/table-of-contents.part
 
 import { slugify } from "@/shared/utils";
 
-import { Components } from "@/types/globals";
+import type { Components } from "@/types/globals";
 
 const TableOfContents = ({ tocObject }: Components.TableOfContentsProps) => {
   return (

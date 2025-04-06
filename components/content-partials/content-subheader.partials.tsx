@@ -16,11 +16,11 @@ import {
   DialogTrigger,
 } from "@/components/base/dialog";
 
-import { coreMetadata } from "@/content/data/metadata";
-
 import { cn } from "@/shared/utils";
 
-import { Components } from "@/types/globals";
+import type { Components } from "@/types/globals";
+
+import { coreMetadata } from "@/contents/data/site-metadata";
 
 const SubheaderRoot = ({ children, className }: Components.BaseWrapperProps) => {
   return (
@@ -55,11 +55,7 @@ const Breadcrumbs = ({ breadcrumbs }: Components.BreadcrumbsProps) => {
   );
 };
 
-interface ShareDialogProps {
-  shortLinkCode: string;
-}
-
-const ShareDialog = ({ shortLinkCode }: ShareDialogProps) => {
+const ShareDialog = ({ shortLinkCode }: Components.ShareDialogProps) => {
   const [isCopied, setIsCopied] = React.useState<boolean>(false);
 
   const shortLinkUrl: string = coreMetadata.base_url + "/link?r=" + shortLinkCode;

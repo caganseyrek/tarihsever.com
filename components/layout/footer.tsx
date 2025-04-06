@@ -1,8 +1,6 @@
 import React from "react";
 
-import Link from "next/link";
-
-import { FooterLicenseContainer, FooterRoot, FooterText } from "@/components/layout/footer.partials";
+import { FooterLicenseContainer, FooterLicenseText, FooterRoot, FooterText } from "@/components/layout/footer.partials";
 
 const Footer = () => {
   return (
@@ -13,11 +11,7 @@ const Footer = () => {
       </FooterText>
       <FooterLicenseContainer>
         <FooterText className="text-foreground">
-          Tarihsever 2025 &mdash; Sitede yer alan içerikler{" "}
-          <Link href="https://github.com/caganseyrek/tarihsever.com/blob/main/LICENSE" target="_blank">
-            MIT lisansı
-          </Link>{" "}
-          altındadır
+          <FooterLicenseText />
         </FooterText>
       </FooterLicenseContainer>
     </FooterRoot>

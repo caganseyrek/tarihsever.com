@@ -1,14 +1,14 @@
 import React from "react";
 
-import { Metadata } from "next";
+import type { Metadata } from "next";
 
 import ThemeProvider from "@/components/theme/theme-provider";
 
-import { headMetadata, jsonLd } from "@/content/data/metadata";
-
 import "@/shared/styles/globals.css";
 
-import { Components } from "@/types/globals";
+import type { Components } from "@/types/globals";
+
+import { headMetadata, jsonLd } from "@/contents/data/site-metadata";
 
 export const metadata: Metadata = {
   title: {

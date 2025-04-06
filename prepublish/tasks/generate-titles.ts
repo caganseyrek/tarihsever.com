@@ -4,7 +4,7 @@ import path from "path";
 import PrepublishUtils from "@/prepublish/prepublish-utils";
 import Workflow from "@/prepublish/workflow";
 
-import { Globals } from "@/types/globals";
+import type { Globals } from "@/types/globals";
 
 class TitleGenerator {
   public static titles: Globals.Data.TitleProps = {};
@@ -39,7 +39,7 @@ class TitleGenerator {
 
     // Try to read and parse existing titles
     try {
-      const { titles } = await import("@/content/generated/titles");
+      const { titles } = await import("@/contents/generated/titles");
 
       // Add existing titles to the internal titles object to make sure we are not
       // overriding unnecessarily
@@ -52,7 +52,7 @@ class TitleGenerator {
 
   public static saveTitles(outputFileName: string): void {
     const navFileContent: string = `// This file is auto-generated
-import { Globals } from "@/types/globals";
+import type { Globals } from "@/types/globals";
 
 export const titles: Globals.Data.TitleProps = ${JSON.stringify(this.titles, null, 2)};\n`;
 

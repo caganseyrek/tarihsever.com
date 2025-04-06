@@ -8,7 +8,7 @@ import { AccordionContent, AccordionTrigger } from "@/components/base/accordion"
 import { Button } from "@/components/base/button";
 import { SidebarGroupSub, SidebarItem as SidebarGroupSubItem } from "@/components/sidebars/sidebar.common";
 
-import { Components } from "@/types/globals";
+import type { Components } from "@/types/globals";
 
 const SubtopicToggle = ({ subtopicTitle }: Components.SubtopicToggleProps) => {
   return (

@@ -14,7 +14,7 @@ import {
 import ArticleNavComponentWrapper from "@/components/sidebars/article-nav.wrapper";
 import TableOfContents from "@/components/sidebars/table-of-contents";
 
-import { Components } from "@/types/globals";
+import type { Components } from "@/types/globals";
 
 const PageLayout = ({ children, tocObject }: Components.PageLayoutProps) => {
   return (

@@ -6,7 +6,7 @@ import { Accordion, AccordionItem } from "@/components/base/accordion";
 import { SubtopicArticles, SubtopicToggle } from "@/components/sidebars/article-nav.partials";
 import { SidebarContent, SidebarGroup, SidebarGroupLabel, SidebarRoot } from "@/components/sidebars/sidebar.common";
 
-import { articleNav } from "@/content/generated/article-nav";
+import { articleNav } from "@/contents/generated/article-nav";
 
 const ArticleNav = () => {
   return (

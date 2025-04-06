@@ -5,20 +5,21 @@ import React from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
+import TarihseverIcon from "@/components/branding/tarihsever-icon";
+import TarihseverTitle from "@/components/branding/tarihsever-title";
 import {
   HeaderNavItem,
   HeaderRightSection,
   HeaderRoot,
-  HeaderSearchDialog,
   HeaderTitle,
   HeaderWrapper,
 } from "@/components/layout/header.partials";
-import TarihseverIcon from "@/components/tarihsever-icon";
+import SearchDialog from "@/components/search-dialog";
 import ThemeButton from "@/components/theme/theme-button";
 
-import { mainMenuLinks } from "@/content/data/main-menu-links";
-
 import { cn } from "@/shared/utils";
+
+import { mainMenuLinks } from "@/contents/data/main-menu-links";
 
 const Header = () => {
   const pathname = usePathname();
@@ -29,12 +30,10 @@ const Header = () => {
         <Link href="/">
           <HeaderTitle>
             <TarihseverIcon />
-            <h1>
-              Tarih<span>sever</span>
-            </h1>
+            <TarihseverTitle />
           </HeaderTitle>
         </Link>
-        <HeaderSearchDialog />
+        <SearchDialog />
         <HeaderRightSection>
           {mainMenuLinks.map((item) => (
             <HeaderNavItem
