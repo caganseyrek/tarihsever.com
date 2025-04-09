@@ -22,7 +22,7 @@ const ContentSources = ({ sources }: Components.ContentSourcesProps) => {
               <ArrowUp className="size-4.5 mb-0.5 inline text-foreground hover:text-primary transition-colors" />
             </Link>
             <strong>{source.sourceName}</strong> &mdash; {source.sourceWebsiteName}
-            <ul className="bg-container-background py-2 mt-2 border rounded-md">
+            <ul className="bg-container-background py-2 mt-2 border rounded-md overflow-auto">
               <li>
                 Link:{" "}
                 <Link href={source.links.sourceWebsiteLink} target="_blank" className="text-wrap">
