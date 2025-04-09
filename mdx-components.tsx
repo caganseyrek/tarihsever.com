@@ -2,7 +2,7 @@ import React from "react";
 
 import type { MDXComponents } from "mdx/types";
 
-import ContentHeading from "@/components/content-partials/content-heading";
+import { ContentHeading } from "@/components/mdx-partials/content-heading";
 
 export const useMDXComponents = (components: MDXComponents): MDXComponents => {
   return {

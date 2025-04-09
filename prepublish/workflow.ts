@@ -2,20 +2,20 @@
 import fs from "fs";
 import path from "path";
 
-import PrepublishUtils from "@/prepublish/prepublish-utils";
-import ShortLinkGenerator from "@/prepublish/tasks/generate-shortlinks";
-import TitleGenerator from "@/prepublish/tasks/generate-titles";
-import TOCGenerator from "@/prepublish/tasks/generate-toc";
-import ArticleProcessor from "@/prepublish/tasks/process-articles";
+import { PrepublishUtils } from "@/prepublish/prepublish-utils";
+import { ShortLinkGenerator } from "@/prepublish/tasks/generate-shortlinks";
+import { TitleGenerator } from "@/prepublish/tasks/generate-titles";
+import { TOCGenerator } from "@/prepublish/tasks/generate-toc";
+import { ArticleProcessor } from "@/prepublish/tasks/process-articles";
 
-import { Workflows } from "@/types/globals";
+import type { Workflows } from "@/types/globals";
 
 class Workflow {
   // The root directory containing content files
   public static readonly contentDirectory: string = path.join(process.cwd(), "contents");
 
   // The directory where generated output files are stored
-  public static readonly outputDirectory: string = path.join(process.cwd(), "contents", "generated");
+  public static readonly outputDirectory: string = path.join(process.cwd(), "contents", "__generated__");
 
   // Filenames for generated output files
   private static readonly outputFiles: Workflows.Prepublish.OutputFileProps = {
@@ -123,4 +123,4 @@ After that, you can re-run 'pnpm prepublish'
 }
 Workflow.start();
 
-export default Workflow;
+export { Workflow };

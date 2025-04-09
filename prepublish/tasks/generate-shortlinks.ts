@@ -1,8 +1,8 @@
 import fs from "fs";
 import path from "path";
 
-import PrepublishUtils from "@/prepublish/prepublish-utils";
-import Workflow from "@/prepublish/workflow";
+import { PrepublishUtils } from "@/prepublish/prepublish-utils";
+import { Workflow } from "@/prepublish/workflow";
 
 import type { Globals } from "@/types/globals";
 
@@ -43,7 +43,7 @@ class ShortLinkGenerator {
 
     // Try to read and parse existing short links
     try {
-      const { shortLinks } = await import("@/contents/generated/shortlinks");
+      const { shortLinks } = await import("@/contents/__generated__/shortlinks");
 
       // Add existing short links to the lists to make sure we are not
       // generating a duplicate short link
@@ -68,4 +68,4 @@ export const shortLinks: Globals.Data.ShortLinkProps[] = ${JSON.stringify(this.s
   }
 }
 
-export default ShortLinkGenerator;
+export { ShortLinkGenerator };

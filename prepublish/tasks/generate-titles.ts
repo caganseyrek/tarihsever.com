@@ -1,8 +1,8 @@
 import fs from "fs";
 import path from "path";
 
-import PrepublishUtils from "@/prepublish/prepublish-utils";
-import Workflow from "@/prepublish/workflow";
+import { PrepublishUtils } from "@/prepublish/prepublish-utils";
+import { Workflow } from "@/prepublish/workflow";
 
 import type { Globals } from "@/types/globals";
 
@@ -39,7 +39,7 @@ class TitleGenerator {
 
     // Try to read and parse existing titles
     try {
-      const { titles } = await import("@/contents/generated/titles");
+      const { titles } = await import("@/contents/__generated__/titles");
 
       // Add existing titles to the internal titles object to make sure we are not
       // overriding unnecessarily
@@ -60,4 +60,4 @@ export const titles: Globals.Data.TitleProps = ${JSON.stringify(this.titles, nul
   }
 }
 
-export default TitleGenerator;
+export { TitleGenerator };

@@ -1,7 +1,7 @@
 import fs from "fs";
 import path from "path";
 
-import Workflow from "@/prepublish/workflow";
+import { Workflow } from "@/prepublish/workflow";
 
 class PrepublishUtils {
   // Content file's extensions
@@ -59,4 +59,4 @@ class PrepublishUtils {
   }
 }
 
-export default PrepublishUtils;
+export { PrepublishUtils };

@@ -2,11 +2,11 @@
 import fs from "fs";
 import path from "path";
 
-import PrepublishUtils from "@/prepublish/prepublish-utils";
-import TitleGenerator from "@/prepublish/tasks/generate-titles";
-import Workflow from "@/prepublish/workflow";
+import { PrepublishUtils } from "@/prepublish/prepublish-utils";
+import { TitleGenerator } from "@/prepublish/tasks/generate-titles";
+import { Workflow } from "@/prepublish/workflow";
 
-import Regex from "@/shared/regex";
+import { regex } from "@/shared/utils";
 
 import type { Globals } from "@/types/globals";
 
@@ -77,7 +77,7 @@ class ArticleProcessor {
 
     // Read the file contents as string
     const fileContent: string = fs.readFileSync(articleFullPath, "utf8");
-    const headerMatch: RegExpExecArray | null = Regex.H1_HEADING_MATCH_REGEX.exec(fileContent);
+    const headerMatch: RegExpExecArray | null = regex.H1_HEADING_MATCH_REGEX.exec(fileContent);
 
     if (!headerMatch) {
       console.log(`-------
@@ -91,7 +91,7 @@ Skip reason: Does not have a main title
     }
 
     const extractedTitle: string = headerMatch[1];
-    const contentWithoutTitle: string = fileContent.replace(Regex.H1_HEADING_REPLACE_REGEX, "");
+    const contentWithoutTitle: string = fileContent.replace(regex.H1_HEADING_REPLACE_REGEX, "");
 
     if (contentWithoutTitle.includes("<ContentSubheader")) {
       console.log(`-------
@@ -107,7 +107,7 @@ Skip reason: Already have a subheader
     const updatedFileContent: string =
       `# ${extractedTitle}
 
-import ContentSubheader from "@/components/content-partials/content-subheader";
+import ContentSubheader from "@/components/mdx-partials/content-subheader";
 
 <ContentSubheader
   breadcrumbs={["${TitleGenerator.titles[topicPath].formattedTitle}", "${TitleGenerator.titles[subtopicPath].formattedTitle}", "${TitleGenerator.titles[articlePath].formattedTitle}"]}
@@ -145,4 +145,4 @@ export const articleNav: Globals.Data.ArticleNavProps[] = ${JSON.stringify(
   }
 }
 
-export default ArticleProcessor;
+export { ArticleProcessor };

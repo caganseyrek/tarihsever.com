@@ -1,6 +1,6 @@
 import React from "react";
 
-import PageLayout from "@/components/layout/page-layout";
+import { PageLayout } from "@/components/page-layout";
 
 const YardimPage = async () => {
   const { default: Contents } = await import("@/contents/pages/site-rehberi.mdx");

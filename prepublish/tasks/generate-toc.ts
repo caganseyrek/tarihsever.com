@@ -1,9 +1,9 @@
 import fs from "fs";
 import path from "path";
 
-import PrepublishUtils from "@/prepublish/prepublish-utils";
+import { PrepublishUtils } from "@/prepublish/prepublish-utils";
 
-import Regex from "@/shared/regex";
+import { regex } from "@/shared/utils";
 import { slugify } from "@/shared/utils";
 
 import type { Globals } from "@/types/globals";
@@ -36,7 +36,7 @@ export const toc: Globals.Data.HeadingNodeProps[] = ${JSON.stringify(generatedNo
     const parsedHeadings: Globals.Data.HeadingProps[] = [];
 
     headingsArray.forEach((heading) => {
-      const match: RegExpMatchArray | null = Regex.HEADING_REGEX.exec(heading);
+      const match: RegExpMatchArray | null = regex.HEADING_REGEX.exec(heading);
       if (match) {
         // Get the heading level from the number of #s
         const level: number = match[1].length;
@@ -85,4 +85,4 @@ export const toc: Globals.Data.HeadingNodeProps[] = ${JSON.stringify(generatedNo
   }
 }
 
-export default TOCGenerator;
+export { TOCGenerator };

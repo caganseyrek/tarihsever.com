@@ -1,7 +1,7 @@
 import type { MetadataRoute } from "next";
 
+import { articleSet } from "@/contents/__generated__/article-set";
 import { coreMetadata } from "@/contents/data/site-metadata";
-import { articleSet } from "@/contents/generated/article-set";
 
 export const sitemap = (): MetadataRoute.Sitemap => {
   return [

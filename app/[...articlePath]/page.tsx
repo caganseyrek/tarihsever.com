@@ -2,15 +2,15 @@ import React from "react";
 
 import NotFoundPage from "@/app/not-found";
 
-import PageLayout from "@/components/layout/page-layout";
+import { PageLayout } from "@/components/page-layout";
+
+import { articleSet } from "@/contents/__generated__/article-set";
 
 import type { Pages } from "@/types/globals";
 
-import { articleSet } from "@/contents/generated/article-set";
-
 export const dynamicParams: boolean = true;
 
-export const generateStaticParams = (): Pages.ArticlePageProps["params"][] => {
+export const generateStaticParams = (): Pages.ArticlePageGenerateProps[] => {
   return Array.from(articleSet).map((article) => ({ articlePath: article.split("/") }));
 };
 

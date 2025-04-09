@@ -4,14 +4,12 @@ import React from "react";
 
 import { ThemeProvider as NextThemesProvider } from "next-themes";
 
-import type { Components } from "@/types/globals";
-
-const ThemeProvider = ({ children }: Components.BaseWrapperProps) => {
+const ThemeProvider = ({ children, ...props }: React.ComponentProps<typeof NextThemesProvider>) => {
   return (
-    <NextThemesProvider attribute="class" defaultTheme="dark" disableTransitionOnChange>
+    <NextThemesProvider attribute="class" defaultTheme="dark" disableTransitionOnChange {...props}>
       {children}
     </NextThemesProvider>
   );
 };
 
-export default ThemeProvider;
+export { ThemeProvider };

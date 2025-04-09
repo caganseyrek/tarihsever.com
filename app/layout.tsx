@@ -2,13 +2,11 @@ import React from "react";
 
 import type { Metadata } from "next";
 
-import ThemeProvider from "@/components/theme/theme-provider";
-
-import "@/shared/styles/globals.css";
-
-import type { Components } from "@/types/globals";
+import { ThemeProvider } from "@/components/theme/theme-provider";
 
 import { headMetadata, jsonLd } from "@/contents/data/site-metadata";
+
+import "@/shared/styles/globals.css";
 
 export const metadata: Metadata = {
   title: {
@@ -18,7 +16,7 @@ export const metadata: Metadata = {
   ...headMetadata,
 };
 
-const RootLayout = ({ children }: Components.BaseWrapperProps) => {
+const RootLayout = ({ children }: { children?: React.ReactNode }) => {
   return (
     <html lang="tr" suppressHydrationWarning>
       <head>

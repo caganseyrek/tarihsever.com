@@ -14,8 +14,8 @@
   --foreground: 0, 0%, 9%;
   --muted-foreground: 0, 0%, 7%;
 
-  --primary: 34, 68%, 53%;
-  --primary-lighter: 33, 60%, 22%;
+  --primary: 34, 68%, 45%;
+  --primary-lighter: 33, 68%, 28%;
   --primary-hover-background: 34, 58%, 83%;
 
   --container-background: 0, 0%, 93%;
@@ -67,7 +67,7 @@
   @apply border-container-border font-sans outline-primary/50 scroll-smooth;
 }
 body {
-  @apply bg-background text-foreground text-sm min-w-[400px] m-0 p-0 min-h-dvh overflow-x-auto;
+  @apply bg-background text-foreground text-sm min-w-[350px] m-0 p-0 min-h-dvh overflow-x-auto;
 }
 
 @layer components {

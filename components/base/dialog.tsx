@@ -7,31 +7,25 @@ import { X as CloseIcon } from "lucide-react";
 
 import { cn } from "@/shared/utils";
 
-const Dialog = Root;
+const Dialog = ({ ...props }: React.ComponentProps<typeof Root>) => <Root {...props} />;
 
-const DialogTrigger = Trigger;
+const DialogTrigger = ({ ...props }: React.ComponentProps<typeof Trigger>) => <Trigger {...props} />;
 
-const DialogClose = React.forwardRef<React.ComponentRef<typeof Close>, React.ComponentPropsWithoutRef<typeof Close>>(
-  ({ className, ...props }, ref) => (
-    <Close
-      ref={ref}
-      className={cn(
-        "rounded-sm cursor-pointer text-muted-foreground hover:text-foreground transition-colors",
-        "disabled:pointer-events-none data-[state=open]:bg-accent data-[state=open]:text-muted-foreground",
-        className,
-      )}
-      {...props}>
-      <CloseIcon className="h-4 w-4 shrink-0" />
-      <span className="sr-only">Close</span>
-    </Close>
-  ),
+const DialogClose = ({ className, ref, ...props }: React.ComponentProps<typeof Close>) => (
+  <Close
+    ref={ref}
+    className={cn(
+      "rounded-sm cursor-pointer text-muted-foreground hover:text-foreground transition-colors",
+      "disabled:pointer-events-none data-[state=open]:bg-accent data-[state=open]:text-muted-foreground",
+      className,
+    )}
+    {...props}>
+    <CloseIcon className="h-4 w-4 shrink-0" />
+    <span className="sr-only">Close</span>
+  </Close>
 );
-DialogClose.displayName = Close.displayName;
 
-const DialogOverlay = React.forwardRef<
-  React.ComponentRef<typeof Overlay>,
-  React.ComponentPropsWithoutRef<typeof Overlay>
->(({ className, ...props }, ref) => (
+const DialogOverlay = ({ className, ref, ...props }: React.ComponentProps<typeof Overlay>) => (
   <Overlay
     ref={ref}
     className={cn(
@@ -41,15 +35,17 @@ const DialogOverlay = React.forwardRef<
     )}
     {...props}
   />
-));
-DialogOverlay.displayName = Overlay.displayName;
+);
 
-const DialogContent = React.forwardRef<
-  React.ComponentRef<typeof Content>,
-  React.ComponentPropsWithoutRef<typeof Content> & {
-    hasCloseButton?: boolean;
-  }
->(({ className, children, hasCloseButton = true, ...props }, ref) => (
+const DialogContent = ({
+  className,
+  children,
+  hasCloseButton = true,
+  ref,
+  ...props
+}: React.ComponentProps<typeof Content> & {
+  hasCloseButton?: boolean;
+}) => (
   <Portal>
     <DialogOverlay />
     <Content
@@ -65,27 +61,18 @@ const DialogContent = React.forwardRef<
       {hasCloseButton && <DialogClose className="absolute right-4 top-4" />}
     </Content>
   </Portal>
-));
-DialogContent.displayName = Content.displayName;
+);
 
 const DialogHeader = ({ className, ...props }: React.HTMLAttributes<HTMLDivElement>) => (
   <div className={cn("flex flex-col space-y-1.5 text-center sm:text-left", className)} {...props} />
 );
-DialogHeader.displayName = "DialogHeader";
 
-const DialogTitle = React.forwardRef<React.ComponentRef<typeof Title>, React.ComponentPropsWithoutRef<typeof Title>>(
-  ({ className, ...props }, ref) => (
-    <Title ref={ref} className={cn("text-lg font-semibold leading-none tracking-tight", className)} {...props} />
-  ),
+const DialogTitle = ({ className, ref, ...props }: React.ComponentProps<typeof Title>) => (
+  <Title ref={ref} className={cn("text-lg font-semibold leading-none tracking-tight", className)} {...props} />
 );
-DialogTitle.displayName = Title.displayName;
 
-const DialogDescription = React.forwardRef<
-  React.ComponentRef<typeof Description>,
-  React.ComponentPropsWithoutRef<typeof Description>
->(({ className, ...props }, ref) => (
+const DialogDescription = ({ className, ref, ...props }: React.ComponentProps<typeof Description>) => (
   <Description ref={ref} className={cn("text-sm text-muted-foreground", className)} {...props} />
-));
-DialogDescription.displayName = Description.displayName;
+);
 
 export { Dialog, DialogTrigger, DialogClose, DialogContent, DialogHeader, DialogDescription, DialogTitle };

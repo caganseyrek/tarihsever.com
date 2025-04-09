@@ -6,13 +6,13 @@ import Link from "next/link";
 import { ArrowLeft } from "lucide-react";
 
 import { Button } from "@/components/base/button";
-import TarihseverIcon from "@/components/branding/tarihsever-icon";
 import {
   CustomPageContainer,
   CustomPageDescription,
   CustomPageRoot,
   CustomPageTitle,
-} from "@/components/custom-page.partials";
+} from "@/components/partials/custom-page.partials";
+import { TarihseverIcon } from "@/components/tarihsever";
 
 export const metadata: Metadata = { title: "Sayfa bulunamadı" };
 
@@ -23,11 +23,11 @@ const NotFoundPage = () => {
         <TarihseverIcon variant="large" />
         <CustomPageTitle>Bu Sayfa Tarihe Karışmış...</CustomPageTitle>
         <CustomPageDescription>Bu sayfayı bulamadık. Belki de yanlış bir yoldan gelmişizdir?</CustomPageDescription>
-        <Link href="/">
-          <Button>
+        <Button asChild>
+          <Link href="/">
             <ArrowLeft /> Ana Sayfaya Dön
-          </Button>
-        </Link>
+          </Link>
+        </Button>
       </CustomPageContainer>
     </CustomPageRoot>
   );

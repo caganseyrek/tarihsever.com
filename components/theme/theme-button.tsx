@@ -9,9 +9,7 @@ import { Button } from "@/components/base/button";
 
 import { cn } from "@/shared/utils";
 
-import type { Components } from "@/types/globals";
-
-const ThemeButton = ({ className }: Components.SearchDialogInputProps) => {
+const ThemeButton = ({ className, ...props }: React.ComponentProps<typeof Button>) => {
   const [mounted, setMounted] = React.useState<boolean>(false);
   const { resolvedTheme, setTheme } = useTheme();
 
@@ -25,7 +23,8 @@ const ThemeButton = ({ className }: Components.SearchDialogInputProps) => {
   return (
     <Button
       className={cn("bg-container-inner-item-background", className)}
-      onClick={() => setTheme(resolvedTheme === "dark" ? "light" : "dark")}>
+      onClick={() => setTheme(resolvedTheme === "dark" ? "light" : "dark")}
+      {...props}>
       {resolvedTheme === "dark" ? (
         <>
           <Sun /> <span className="sr-only">Aydınlık temaya geç</span>
@@ -39,4 +38,4 @@ const ThemeButton = ({ className }: Components.SearchDialogInputProps) => {
   );
 };
 
-export default ThemeButton;
+export { ThemeButton };

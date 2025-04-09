@@ -1,13 +1,13 @@
 import React from "react";
 
-import { LoaderCircle } from "lucide-react";
+import { Loader } from "lucide-react";
 
-import { CustomPageRoot } from "@/components/custom-page.partials";
+import { CustomPageRoot } from "@/components/partials/custom-page.partials";
 
 const LoadingPage = () => {
   return (
     <CustomPageRoot>
-      <LoaderCircle className="animate-spin" />
+      <Loader className="animate-spin" />
     </CustomPageRoot>
   );
 };
