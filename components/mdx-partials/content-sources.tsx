@@ -25,14 +25,14 @@ const ContentSources = ({ sources }: Components.ContentSourcesProps) => {
             <ul className="bg-container-background py-2 mt-2 border rounded-md">
               <li>
                 Link:{" "}
-                <Link href={source.links.sourceWebsiteLink} target="_blank">
+                <Link href={source.links.sourceWebsiteLink} target="_blank" className="text-wrap">
                   {source.links.sourceWebsiteLink}
                 </Link>
               </li>
               {source.links.historicalDocument && (
                 <li>
                   Tarihi Döküman:{" "}
-                  <Link href={source.links.historicalDocument} target="_blank">
+                  <Link href={source.links.historicalDocument} target="_blank" className="text-wrap">
                     {source.links.historicalDocument}
                   </Link>
                 </li>
