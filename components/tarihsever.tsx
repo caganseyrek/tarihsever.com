@@ -28,16 +28,17 @@ const TarihseverIcon = ({ className, variant = "small" }: Components.BrandingPro
   );
 };
 
-const TarihseverTitle = ({ variant, className }: Components.BrandingProps) => {
+const TarihseverTitle = ({ variant, className, asChild }: Components.BrandingProps & { asChild?: boolean }) => {
+  const Component = asChild ? "span" : "h1";
   return (
-    <h1
+    <Component
       className={cn(
         variant === "large" ? "text-4xl" : "text-3xl",
         "font-semibold tracking-tighter select-none [&>span]:text-primary",
         className,
       )}>
       Tarih<span>sever</span>
-    </h1>
+    </Component>
   );
 };
 
