@@ -8,7 +8,15 @@ import { Menu } from "lucide-react";
 
 import { ArticleList } from "@/components/article-list";
 import { Button } from "@/components/base/button";
-import { Sheet, SheetClose, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "@/components/base/sheet";
+import {
+  Sheet,
+  SheetClose,
+  SheetContent,
+  SheetDescription,
+  SheetHeader,
+  SheetTitle,
+  SheetTrigger,
+} from "@/components/base/sheet";
 import { SidebarContent, SidebarGroup, SidebarGroupLabel } from "@/components/base/sidebar";
 import { MenuItem } from "@/components/menu-item";
 import { SearchDialog } from "@/components/search-dialog";
@@ -32,9 +40,10 @@ const LeftMenuSheet = ({ className, ...props }: React.ComponentProps<typeof Butt
         <SheetHeader className="gap-2 max-[270px]:flex-col-reverse max-[270px]:items-start">
           <SheetTitle>
             <TarihseverIcon />
-            <TarihseverTitle />
+            <TarihseverTitle asChild />
             <span className="sr-only">Menü</span>
           </SheetTitle>
+          <SheetDescription className="sr-only">Mobile menü</SheetDescription>
           <SheetClose />
         </SheetHeader>
         <SearchDialog className="w-full" />

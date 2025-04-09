@@ -2,7 +2,7 @@
 
 import React from "react";
 
-import { Close, Content, Overlay, Portal, Root, Title, Trigger } from "@radix-ui/react-dialog";
+import { Close, Content, Description, Overlay, Portal, Root, Title, Trigger } from "@radix-ui/react-dialog";
 import { cva } from "class-variance-authority";
 import { ChevronsLeft } from "lucide-react";
 
@@ -73,6 +73,14 @@ const SheetTitle = ({ className, ref, ...props }: React.ComponentProps<typeof Ti
   <Title ref={ref} className={cn("w-full flex flex-row items-center justify-start gap-2", className)} {...props} />
 );
 
+const SheetDescription = ({ className, ref, ...props }: React.ComponentProps<typeof Description>) => (
+  <Description
+    ref={ref}
+    className={cn("w-full flex flex-row items-center justify-start gap-2", className)}
+    {...props}
+  />
+);
+
 export {
   Sheet,
   SheetPortal,
@@ -82,5 +90,6 @@ export {
   SheetContent,
   SheetHeader,
   SheetTitle,
+  SheetDescription,
   sheetVariants,
 };
