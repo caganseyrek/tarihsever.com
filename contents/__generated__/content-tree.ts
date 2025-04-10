@@ -1,7 +1,7 @@
 // This file is auto-generated
 import type { Globals } from "@/types/globals";
 
-export const articleNav: Globals.Data.ArticleNavProps[] = [
+export const contentTree: Globals.Data.ContentTreeProps[] = [
   {
     "key": "koloniyalizm",
     "title": "Koloniyalizm",

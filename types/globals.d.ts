@@ -14,7 +14,7 @@ export namespace Globals {
     path: string;
   }
   export namespace Data {
-    export interface ArticleNavProps extends LinkProps {
+    export interface ContentTreeProps extends LinkProps {
       subtopics: {
         key: string;
         title: string;
@@ -22,14 +22,14 @@ export namespace Globals {
         articles: LinkProps[];
       }[];
     }
-    export interface TitleProps {
+    export interface FormattedTitleProps {
       [key: string]: {
         originalTitle: string;
         formattedTitle: string;
       };
     }
-    export interface ShortLinkProps {
-      shortLinkCode: string;
+    export interface ShortlinkProps {
+      shortlinkCode: string;
       redirectsTo: string;
     }
     export interface HeadingProps {
@@ -77,7 +77,7 @@ export namespace Components {
     }[];
   }
   export interface ShareDialogProps {
-    shortLinkCode: string;
+    shortlinkCode: string;
   }
   export interface ContentSubheaderProps {
     breadcrumbs: string[];
@@ -136,19 +136,19 @@ export namespace Pages {
 export namespace Workflows {
   export namespace Prepublish {
     export interface OutputFileProps {
-      articleNavFileName: string;
-      articleSetFileName: string;
-      shortLinkFileName: string;
-      titlesFileName: string;
+      articleLookupOutput: string;
+      contentTreeOutput: string;
+      formattedTitlesOutput: string;
+      shortlinkOutput: string;
     }
     export interface DirToProcessProps {
       path: string;
       options: {
-        addToArticleSet: boolean;
-        addToArticleNav: boolean;
-        generateShortLink: boolean;
-        generateToc: boolean;
-        addSubheader: boolean;
+        addToArticleLookup: boolean;
+        addToContentTree: boolean;
+        generateShortlink: boolean;
+        generateTableOfContents: boolean;
+        injectSubheader: boolean;
       };
     }
   }

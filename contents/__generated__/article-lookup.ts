@@ -1,5 +1,5 @@
 // This file is auto-generated
-export const articleSet: Set<string> = new Set([
+export const articleLookup: Set<string> = new Set([
   "konular/koloniyalizm/afrikada-kolonicilik/example",
   "konular/koloniyalizm/amerikada-kolonicilik/example",
   "konular/koloniyalizm/asyada-kolonicilik/example",

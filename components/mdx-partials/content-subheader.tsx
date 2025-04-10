@@ -16,14 +16,14 @@ import {
   DialogTrigger,
 } from "@/components/base/dialog";
 
-import { shortLinks } from "@/contents/__generated__/shortlinks";
+import { shortlinks } from "@/contents/__generated__/shortlinks";
 import { coreMetadata } from "@/contents/data/site-metadata";
 
 import type { Components, Globals } from "@/types/globals";
 
-const ShareDialog = ({ shortLinkCode }: Components.ShareDialogProps) => {
+const ShareDialog = ({ shortlinkCode }: Components.ShareDialogProps) => {
   const [isCopied, setIsCopied] = React.useState<boolean>(false);
-  const shortLinkUrl: string = coreMetadata.base_url + "/link?r=" + shortLinkCode;
+  const shortlinkUrl: string = coreMetadata.base_url + "/link?r=" + shortlinkCode;
   return (
     <Dialog>
       <DialogTrigger asChild>
@@ -41,11 +41,11 @@ const ShareDialog = ({ shortLinkCode }: Components.ShareDialogProps) => {
           title="Kopyalamak için tıklayın"
           disabled={isCopied}
           onClick={async () => {
-            await navigator.clipboard.writeText(shortLinkUrl);
+            await navigator.clipboard.writeText(shortlinkUrl);
             setIsCopied(true);
             setTimeout(() => setIsCopied(false), 2500);
           }}>
-          <span>{shortLinkUrl}</span>
+          <span>{shortlinkUrl}</span>
           {isCopied ? <Check /> : <Copy />}
         </Button>
       </DialogContent>
@@ -54,10 +54,10 @@ const ShareDialog = ({ shortLinkCode }: Components.ShareDialogProps) => {
 };
 
 const ContentSubheader = ({ breadcrumbs, pagePath }: Components.ContentSubheaderProps) => {
-  const shortLinkCode: Globals.Data.ShortLinkProps[] | undefined = shortLinks.filter(
-    (shortLink) => shortLink.redirectsTo === pagePath,
+  const shortlinkCode: Globals.Data.ShortlinkProps[] | undefined = shortlinks.filter(
+    (shortlink) => shortlink.redirectsTo === pagePath,
   );
-  const hasShortLinkCode: boolean = shortLinkCode.length === 1;
+  const hasShortLinkCode: boolean = shortlinkCode.length === 1;
 
   return (
     <div className="w-full flex flex-row items-start justify-start gap-8 text-muted-foreground [&_svg]:size-4">
@@ -77,7 +77,7 @@ const ContentSubheader = ({ breadcrumbs, pagePath }: Components.ContentSubheader
           </div>
         ))}
       </div>
-      {hasShortLinkCode && <ShareDialog shortLinkCode={shortLinkCode[0].shortLinkCode} />}
+      {hasShortLinkCode && <ShareDialog shortlinkCode={shortlinkCode[0].shortlinkCode} />}
     </div>
   );
 };

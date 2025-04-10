@@ -9,10 +9,4 @@ const slugify = (text: string): string =>
     .replaceAll(" ", "-")
     .toLowerCase();
 
-const regex = {
-  HEADING_REGEX: /^(#+)\s+(.*?)$/,
-  H1_HEADING_MATCH_REGEX: /^#\s(.+)/,
-  H1_HEADING_REPLACE_REGEX: /^#\s.+\n/,
-};
-
-export { cn, slugify, regex };
+export { cn, slugify };

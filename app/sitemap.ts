@@ -1,6 +1,6 @@
 import type { MetadataRoute } from "next";
 
-import { articleSet } from "@/contents/__generated__/article-set";
+import { articleLookup } from "@/contents/__generated__/article-lookup";
 import { coreMetadata } from "@/contents/data/site-metadata";
 
 export const sitemap = (): MetadataRoute.Sitemap => {
@@ -17,7 +17,7 @@ export const sitemap = (): MetadataRoute.Sitemap => {
       url: coreMetadata.base_url + "/yardim",
       lastModified: new Date(),
     },
-    ...Array.from(articleSet).map((article) => ({
+    ...Array.from(articleLookup).map((article) => ({
       url: coreMetadata.base_url + "/" + article,
       lastModified: new Date(),
     })),

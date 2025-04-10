@@ -4,20 +4,20 @@ import NotFoundPage from "@/app/not-found";
 
 import { PageLayout } from "@/components/page-layout";
 
-import { articleSet } from "@/contents/__generated__/article-set";
+import { articleLookup } from "@/contents/__generated__/article-lookup";
 
 import type { Pages } from "@/types/globals";
 
 export const dynamicParams: boolean = true;
 
 export const generateStaticParams = (): Pages.ArticlePageGenerateProps[] => {
-  return Array.from(articleSet).map((article) => ({ articlePath: article.split("/") }));
+  return Array.from(articleLookup).map((article) => ({ articlePath: article.split("/") }));
 };
 
 const ArticlePage = async ({ params }: Pages.ArticlePageAsyncProps) => {
   const awaitedPathElements: string[] = (await params).articlePath ?? [];
 
-  if (!articleSet.has(awaitedPathElements.join("/"))) return <NotFoundPage />;
+  if (!articleLookup.has(awaitedPathElements.join("/"))) return <NotFoundPage />;
   const filePath: string = awaitedPathElements.slice(1).join("/");
 
   const { default: Contents } = await import(`@/contents/topics/${filePath}.mdx`);

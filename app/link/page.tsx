@@ -6,7 +6,7 @@ import { ReadonlyURLSearchParams, useRouter, useSearchParams } from "next/naviga
 
 import LoadingPage from "@/app/loading";
 
-import { shortLinks } from "@/contents/__generated__/shortlinks";
+import { shortlinks } from "@/contents/__generated__/shortlinks";
 
 import type { Globals } from "@/types/globals";
 
@@ -15,18 +15,18 @@ const ShortlinkPage = () => {
   const searchParams: ReadonlyURLSearchParams = useSearchParams();
 
   React.useEffect(() => {
-    const shortLinkCode: string | null = searchParams.get("r");
+    const shortlinkCode: string | null = searchParams.get("r");
 
-    if (!shortLinkCode) {
+    if (!shortlinkCode) {
       return router.replace("/");
     }
-    const shortLinkItem: Globals.Data.ShortLinkProps | undefined = shortLinks.find(
-      (link) => link.shortLinkCode === shortLinkCode,
+    const shortlinkItem: Globals.Data.ShortlinkProps | undefined = shortlinks.find(
+      (link) => link.shortlinkCode === shortlinkCode,
     );
-    if (!shortLinkItem) {
+    if (!shortlinkItem) {
       return router.replace("/");
     }
-    return router.replace(shortLinkItem.redirectsTo);
+    return router.replace(shortlinkItem.redirectsTo);
   });
 
   return <LoadingPage />;

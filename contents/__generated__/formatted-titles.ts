@@ -1,7 +1,7 @@
 // This file is auto-generated
 import type { Globals } from "@/types/globals";
 
-export const titles: Globals.Data.TitleProps = {
+export const formattedTitles: Globals.Data.FormattedTitleProps = {
   "konular/koloniyalizm": {
     "originalTitle": "koloniyalizm",
     "formattedTitle": "Koloniyalizm"

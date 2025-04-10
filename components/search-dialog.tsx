@@ -17,7 +17,7 @@ import {
   CommandSeparator,
 } from "@/components/partials/search-dialog.partials";
 
-import { articleNav } from "@/contents/__generated__/article-nav";
+import { contentTree } from "@/contents/__generated__/content-tree";
 import { mainMenuLinks } from "@/contents/data/main-menu-links";
 
 import { cn } from "@/shared/utils";
@@ -54,7 +54,7 @@ const SearchDialog = ({ className, iconOnly }: Components.SearchDialogInputProps
             </CommandGroup>
             <CommandSeparator />
             <CommandGroup heading="Yazılar">
-              {articleNav.map((topic) =>
+              {contentTree.map((topic) =>
                 topic.subtopics.map((subtopic) =>
                   subtopic.articles.map((article) => (
                     <CommandArticleItem

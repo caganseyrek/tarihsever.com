@@ -1,73 +1,73 @@
 // This file is auto-generated
 import type { Globals } from "@/types/globals";
 
-export const shortLinks: Globals.Data.ShortLinkProps[] = [
+export const shortlinks: Globals.Data.ShortlinkProps[] = [
   {
-    "shortLinkCode": "VQRuQwG9",
+    "shortlinkCode": "VQRuQwG9",
     "redirectsTo": "konular/koloniyalizm/afrikada-kolonicilik/example"
   },
   {
-    "shortLinkCode": "BUymvQ98",
+    "shortlinkCode": "BUymvQ98",
     "redirectsTo": "konular/koloniyalizm/amerikada-kolonicilik/example"
   },
   {
-    "shortLinkCode": "asiGzeLy",
+    "shortlinkCode": "asiGzeLy",
     "redirectsTo": "konular/koloniyalizm/asyada-kolonicilik/example"
   },
   {
-    "shortLinkCode": "Q4nhQJzW",
+    "shortlinkCode": "Q4nhQJzW",
     "redirectsTo": "konular/koloniyalizm/dekolonizasyon/example"
   },
   {
-    "shortLinkCode": "CWs44U9F",
+    "shortlinkCode": "CWs44U9F",
     "redirectsTo": "konular/koloniyalizm/direnisler-ve-isyanlar/example"
   },
   {
-    "shortLinkCode": "rYsnVupo",
+    "shortlinkCode": "rYsnVupo",
     "redirectsTo": "konular/koloniyalizm/imparatorluklar/example"
   },
   {
-    "shortLinkCode": "ZH8NW1ck",
+    "shortlinkCode": "ZH8NW1ck",
     "redirectsTo": "konular/koloniyalizm/kesif-cagi/example"
   },
   {
-    "shortLinkCode": "w6zDgW7Y",
+    "shortlinkCode": "w6zDgW7Y",
     "redirectsTo": "konular/koloniyalizm/pasifikte-kolonicilik/example"
   },
   {
-    "shortLinkCode": "OnJfLDNa",
+    "shortlinkCode": "OnJfLDNa",
     "redirectsTo": "konular/koloniyalizm/afrikada-kolonicilik/deneme"
   },
   {
-    "shortLinkCode": "RLVlM3Ed",
+    "shortlinkCode": "RLVlM3Ed",
     "redirectsTo": "konular/1-koloniyalizm/1.1-kesif-cagi/example"
   },
   {
-    "shortLinkCode": "1DsSmc8F",
+    "shortlinkCode": "1DsSmc8F",
     "redirectsTo": "konular/1-koloniyalizm/1.2-amerikada-kolonicilik/example"
   },
   {
-    "shortLinkCode": "01BBfi4A",
+    "shortlinkCode": "01BBfi4A",
     "redirectsTo": "konular/1-koloniyalizm/1.3-asyada-kolonicilik/example"
   },
   {
-    "shortLinkCode": "7DCBEFZk",
+    "shortlinkCode": "7DCBEFZk",
     "redirectsTo": "konular/1-koloniyalizm/1.4-afrikada-kolonicilik/example"
   },
   {
-    "shortLinkCode": "2jLdBEaD",
+    "shortlinkCode": "2jLdBEaD",
     "redirectsTo": "konular/1-koloniyalizm/1.5-pasifikte-kolonicilik/example"
   },
   {
-    "shortLinkCode": "00bQsuzu",
+    "shortlinkCode": "00bQsuzu",
     "redirectsTo": "konular/1-koloniyalizm/1.6-direnisler-ve-isyanlar/example"
   },
   {
-    "shortLinkCode": "UUwmxWD5",
+    "shortlinkCode": "UUwmxWD5",
     "redirectsTo": "konular/1-koloniyalizm/1.7-dekolonizasyon/example"
   },
   {
-    "shortLinkCode": "XSlZORka",
+    "shortlinkCode": "XSlZORka",
     "redirectsTo": "konular/1-koloniyalizm/1.8-imparatorluklar/example"
   }
 ];

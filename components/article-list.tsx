@@ -4,7 +4,7 @@ import { Accordion, AccordionItem } from "@/components/base/accordion";
 import { SidebarContent, SidebarGroup, SidebarGroupLabel, SidebarRoot } from "@/components/base/sidebar";
 import { SubtopicToggleArticles, SubtopicToggleButton } from "@/components/partials/article-list.partials";
 
-import { articleNav } from "@/contents/__generated__/article-nav";
+import { contentTree } from "@/contents/__generated__/content-tree";
 
 import { cn } from "@/shared/utils";
 
@@ -13,7 +13,7 @@ import type { Components } from "@/types/globals";
 const ArticleListContent = ({ forMobileSidebar }: Components.ArticleListProps) => {
   return (
     <>
-      {articleNav.map((topic) => (
+      {contentTree.map((topic) => (
         <Accordion key={topic.key} type="multiple">
           <SidebarGroup>
             <SidebarGroupLabel

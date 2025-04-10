@@ -1,6 +1,6 @@
 import { BookMarked, Dices, LetterText } from "lucide-react";
 
-import { articleSet } from "@/contents/__generated__/article-set";
+import { articleLookup } from "@/contents/__generated__/article-lookup";
 
 import type { Globals } from "@/types/globals";
 
@@ -26,7 +26,7 @@ export const homepageCards: Globals.Data.HomepageCardProps[] = [
     description: "Arama yapmadan keşfetmek istiyorsanız, rastgele bir yazıya göz atın",
     get_redirect_path: () => {
       "use client";
-      const articlesArrayFromSet: string[] = Array.from(articleSet);
+      const articlesArrayFromSet: string[] = Array.from(articleLookup);
       const randomIndex: number = Math.floor(Math.random() * articlesArrayFromSet.length);
       return articlesArrayFromSet[randomIndex];
     },

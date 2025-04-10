@@ -1,24 +1,23 @@
 import fs from "fs";
 import path from "path";
 
-import { PrepublishUtils } from "@/prepublish/prepublish-utils";
+import { NodeUtils } from "@/prepublish/shared/node-utils";
 
-import { regex } from "@/shared/utils";
 import { slugify } from "@/shared/utils";
 
 import type { Globals } from "@/types/globals";
 
-class TOCGenerator {
-  public static generate(articleFullPath: string): void {
+class TableOfContentsBuilder {
+  public static processPath(articleFullPath: string): void {
     const articleDirectory: string = path.dirname(articleFullPath);
-    const articleFileBaseName: string = path.basename(articleFullPath, PrepublishUtils.ARTICLE_FILE_EXT);
+    const articleFileBaseName: string = path.basename(articleFullPath, NodeUtils.ARTICLE_FILE_EXT);
     const articleMetadataFilePath: string = path.join(articleDirectory, `${articleFileBaseName}.toc.ts`);
 
     // Read the file contents as string
     const fileContent: string = fs.readFileSync(articleFullPath, "utf8");
 
-    const parsedHeadings: Globals.Data.HeadingProps[] = this.parseHeadings(fileContent);
-    const generatedNodes: Globals.Data.HeadingNodeProps[] = this.generateTocNodes(parsedHeadings);
+    const headings: Globals.Data.HeadingProps[] = this.extractAndParseHeadings(fileContent);
+    const generatedNodes: Globals.Data.HeadingNodeProps[] = this.generateNodes(headings);
 
     const tocFileContent: string = `// This file is auto-generated
 import type { Globals } from "@/types/globals";
@@ -29,14 +28,14 @@ export const toc: Globals.Data.HeadingNodeProps[] = ${JSON.stringify(generatedNo
     fs.writeFileSync(articleMetadataFilePath, tocFileContent, "utf8");
   }
 
-  private static parseHeadings(fileContent: string): Globals.Data.HeadingProps[] {
+  private static extractAndParseHeadings(fileContent: string): Globals.Data.HeadingProps[] {
     // Split the content string from the '\n' characters then filter the resulting array
     // to only include the elements that starts with # (headings)
-    const headingsArray: string[] = fileContent.split("\n").filter((token) => token.startsWith("#"));
+    const extractedHeadings: string[] = fileContent.split("\n").filter((token) => token.startsWith("#"));
     const parsedHeadings: Globals.Data.HeadingProps[] = [];
 
-    headingsArray.forEach((heading) => {
-      const match: RegExpMatchArray | null = regex.HEADING_REGEX.exec(heading);
+    extractedHeadings.forEach((heading) => {
+      const match: RegExpMatchArray | null = NodeUtils.HEADING_REGEX.exec(heading);
       if (match) {
         // Get the heading level from the number of #s
         const level: number = match[1].length;
@@ -51,7 +50,7 @@ export const toc: Globals.Data.HeadingNodeProps[] = ${JSON.stringify(generatedNo
     return parsedHeadings;
   }
 
-  private static generateTocNodes(parsedHeadings: Globals.Data.HeadingProps[]): Globals.Data.HeadingNodeProps[] {
+  private static generateNodes(parsedHeadings: Globals.Data.HeadingProps[]): Globals.Data.HeadingNodeProps[] {
     const generatedNodes: Globals.Data.HeadingNodeProps[] = [];
     const stack: Globals.Data.HeadingNodeProps[] = [];
 
@@ -62,7 +61,6 @@ export const toc: Globals.Data.HeadingNodeProps[] = ${JSON.stringify(generatedNo
         level: heading.level,
         children: [],
       };
-
       // Loop to pop elements from the stack while their level is greater than
       // or equal to the current heading's level
       while (stack.length > 0 && stack[stack.length - 1].level >= heading.level) {
@@ -85,4 +83,4 @@ export const toc: Globals.Data.HeadingNodeProps[] = ${JSON.stringify(generatedNo
   }
 }
 
-export { TOCGenerator };
+export { TableOfContentsBuilder };
