@@ -2,55 +2,78 @@
 
 import React from "react";
 
+import Link from "next/link";
 import { usePathname } from "next/navigation";
 
-import { MenuItem } from "@/components/menu-item";
-import { LeftMenuSheet } from "@/components/mobile-sidebar";
-import {
-  HeaderContainer,
-  HeaderMenuContainer,
-  HeaderRoot,
-  HeaderTitleLink,
-} from "@/components/partials/header.partials";
+import { LinkedButton } from "@/components/base/button";
+
+import { MobileSidebar } from "@/components/mobile/mobile-sidebar";
 import { SearchDialog } from "@/components/search-dialog";
 import { TarihseverIcon, TarihseverTitle } from "@/components/tarihsever";
 import { ThemeButton } from "@/components/theme/theme-button";
 
-import { mainMenuLinks } from "@/contents/data/main-menu-links";
+import { mainNavigation } from "@/content/data/main-navigation";
 
 import { cn } from "@/shared/utils";
 
-const Header = () => {
-  const pathname = usePathname();
-
+const HeaderTitleLink = ({ children, className }: { children?: React.ReactNode; className?: string }) => {
   return (
-    <HeaderRoot>
-      <HeaderContainer className="max-[1344px]:w-full max-[1000px]:hidden">
-        <HeaderTitleLink>
-          <TarihseverIcon />
-          <TarihseverTitle />
-        </HeaderTitleLink>
-        <SearchDialog />
-        <HeaderMenuContainer>
-          {mainMenuLinks.map((item) => (
-            <MenuItem
-              key={item.key}
-              linkDetails={item}
-              className={cn(item.path === pathname && "bg-primary-hover-background text-primary-lighter")}
-            />
-          ))}
-          <ThemeButton />
-        </HeaderMenuContainer>
-      </HeaderContainer>
-      <HeaderContainer className="hidden w-full max-[1000px]:flex">
-        <LeftMenuSheet />
-        <HeaderTitleLink>
-          <TarihseverIcon />
-          <TarihseverTitle />
-        </HeaderTitleLink>
+    <Link href="/" className={cn("flex flex-row items-center justify-center gap-2", className)}>
+      {children}
+    </Link>
+  );
+};
+
+const HeaderContainer = ({ children, className, ...props }: React.HTMLAttributes<HTMLDivElement>) => {
+  return (
+    <div
+      className={cn("w-[1344px] m-auto p-4 gap-10 flex flex-row items-center justify-between", className)}
+      {...props}>
+      {children}
+    </div>
+  );
+};
+
+const DefaultHeaderContents = () => {
+  const pathname = usePathname();
+  return (
+    <HeaderContainer className="max-[1344px]:w-full max-[1050px]:hidden">
+      <Link href="/" className="flex flex-row items-center justify-center gap-2">
+        <TarihseverIcon />
+        <TarihseverTitle />
+      </Link>
+      <SearchDialog placeholderText="Tarihsever'de Ara..." />
+      <div className="flex flex-row items-center justify-center gap-1">
+        {mainNavigation.map((item) => (
+          <LinkedButton key={item.key} link={item.path} toggled={item.path === pathname}>
+            {item.title}
+          </LinkedButton>
+        ))}
         <ThemeButton />
-      </HeaderContainer>
-    </HeaderRoot>
+      </div>
+    </HeaderContainer>
+  );
+};
+
+const MobileHeaderContents = () => {
+  return (
+    <HeaderContainer className="hidden w-full max-[1050px]:flex">
+      <MobileSidebar />
+      <HeaderTitleLink>
+        <TarihseverIcon />
+        <TarihseverTitle />
+      </HeaderTitleLink>
+      <ThemeButton />
+    </HeaderContainer>
+  );
+};
+
+const Header = () => {
+  return (
+    <header className="w-full bg-container-background border-b">
+      <DefaultHeaderContents />
+      <MobileHeaderContents />
+    </header>
   );
 };
 

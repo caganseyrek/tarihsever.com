@@ -1,85 +1,67 @@
+"use client";
+
 import React from "react";
 
-import { ChevronDown, List } from "lucide-react";
+import { LinkedButton as SidebarLink } from "@/components/base/button";
 
-import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/base/accordion";
-import { Button } from "@/components/base/button";
-import {
-  SidebarContent,
-  SidebarGroup,
-  SidebarGroupContent,
-  SidebarGroupLabel,
-  SidebarGroupSub,
-  SidebarItem as SidebarGroupSubItem,
-  SidebarItem,
-  SidebarRoot,
-} from "@/components/base/sidebar";
+import { SidebarItem, SidebarItemSub } from "@/components/partials/sidebar.partials";
 
 import { slugify } from "@/shared/utils";
 
-import type { Components, Globals } from "@/types/globals";
+import type { TableOfContentsProps } from "@/types/globals";
 
-const TableOfContentsItems = ({ tocObject }: Components.TableOfContentsProps) => {
-  const renderHeadingNodes = (nodes: Globals.Data.HeadingNodeProps[]) => {
+const TableOfContents = ({ tocObject }: TableOfContentsProps) => {
+  // const [activeId, setActiveId] = React.useState<string | null>(null);
+
+  // React.useEffect(() => {
+  //   const observer: IntersectionObserver = new IntersectionObserver(
+  //     (entries) => {
+  //       const visibleHeadings: IntersectionObserverEntry[] = entries
+  //         .filter((entry) => entry.isIntersecting)
+  //         .sort((a, b) => b.intersectionRatio - a.intersectionRatio);
+
+  //       if (visibleHeadings.length > 0) {
+  //         const id: string = visibleHeadings[0].target.id;
+  //         setActiveId(id);
+  //       }
+  //     },
+  //     { rootMargin: "0px 0px -70% 0px", threshold: [0.1, 0.5, 1] },
+  //   );
+
+  //   const headingElements = Array.from(document.querySelectorAll("h2, h3, h4")) as HTMLElement[];
+  //   headingElements.forEach((element) => observer.observe(element));
+
+  //   return () => observer.disconnect();
+  // }, []);
+
+  const renderHeadingNodes = (nodes: TableOfContentsProps["tocObject"]) => {
     return nodes.map((node) => {
       const parsedText: string = slugify(node.text);
       return (
-        <React.Fragment key={parsedText}>
-          <SidebarGroupSubItem link={"#" + parsedText}>{node.text}</SidebarGroupSubItem>
+        <SidebarItem key={parsedText}>
+          <SidebarLink link={"#" + parsedText} aria-level={node.level}>
+            {node.text}
+          </SidebarLink>
           {node.children && node.children.length > 0 && (
-            <SidebarGroupSub>{renderHeadingNodes(node.children)}</SidebarGroupSub>
+            <SidebarItemSub>{renderHeadingNodes(node.children)}</SidebarItemSub>
           )}
-        </React.Fragment>
+        </SidebarItem>
       );
     });
   };
   return tocObject.map((node) => {
     const parsedText: string = slugify(node.text);
     return (
-      <React.Fragment key={parsedText}>
-        <SidebarItem link={"#" + parsedText}>{node.text}</SidebarItem>
+      <SidebarItem key={parsedText}>
+        <SidebarLink link={"#" + parsedText} aria-level={node.level}>
+          {node.text}
+        </SidebarLink>
         {node.children && node.children.length > 0 && (
-          <SidebarGroupSub>{renderHeadingNodes(node.children)}</SidebarGroupSub>
+          <SidebarItemSub>{renderHeadingNodes(node.children)}</SidebarItemSub>
         )}
-      </React.Fragment>
+      </SidebarItem>
     );
   });
-};
-
-const TableOfContents = ({ forMobileToggle, tocObject }: Components.TableOfContentsProps) => {
-  if (forMobileToggle) {
-    return (
-      <Accordion type="single" collapsible className="mb-4 hidden max-[1000px]:inline-block">
-        <AccordionItem value="table-of-contents">
-          <AccordionTrigger asChild>
-            <Button className="w-full justify-between text-sm">
-              <span className="flex flex-row items-center justify-start gap-2">
-                <List />
-                İçindekiler
-              </span>
-              <ChevronDown />
-            </Button>
-          </AccordionTrigger>
-          <AccordionContent className="border rounded-md bg-container-background p-2 mt-2 text-sm [&_a]:rounded-sm">
-            <TableOfContentsItems tocObject={tocObject} />
-          </AccordionContent>
-        </AccordionItem>
-      </Accordion>
-    );
-  }
-
-  return (
-    <SidebarRoot>
-      <SidebarContent className="sticky top-4 gap-1">
-        <SidebarGroup>
-          <SidebarGroupLabel title="İçindekiler">İçindekiler</SidebarGroupLabel>
-          <SidebarGroupContent className="max-h-[calc(100dvh-4.5rem)] overflow-auto">
-            <TableOfContentsItems tocObject={tocObject} />
-          </SidebarGroupContent>
-        </SidebarGroup>
-      </SidebarContent>
-    </SidebarRoot>
-  );
 };
 
 export { TableOfContents };

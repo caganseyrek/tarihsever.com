@@ -1,7 +1,9 @@
 import { type ClassValue, clsx } from "clsx";
 import { twMerge } from "tailwind-merge";
 
-const cn = (...inputs: ClassValue[]) => twMerge(clsx(inputs));
+import { coreMetadata } from "@/content/data/site-metadata";
+
+const cn = (...inputs: ClassValue[]): string => twMerge(clsx(inputs));
 
 const slugify = (text: string): string =>
   text
@@ -9,4 +11,7 @@ const slugify = (text: string): string =>
     .replaceAll(" ", "-")
     .toLowerCase();
 
-export { cn, slugify };
+const absoluteLink = (pathname?: string): string =>
+  pathname ? coreMetadata.base_url + pathname : coreMetadata.base_url;
+
+export { cn, slugify, absoluteLink };

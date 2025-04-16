@@ -4,7 +4,11 @@ import Link from "next/link";
 
 import { cn } from "@/shared/utils";
 
-import type { Components } from "@/types/globals";
+import type { MainNavigationProps } from "@/types/globals";
+
+interface HomepageCardItemProps {
+  cardDetails: MainNavigationProps;
+}
 
 const HomepageRoot = ({ className, children, ...props }: React.HTMLAttributes<HTMLDivElement>) => {
   return (
@@ -64,10 +68,10 @@ const HomepageCardsContainer = ({ className, children, ...props }: React.HTMLAtt
   );
 };
 
-const HomepageCardItem = ({ cardDetails }: Components.HomepageCardItemProps) => {
+const HomepageCardItem = ({ cardDetails }: HomepageCardItemProps) => {
   return (
     <Link
-      href={cardDetails.get_redirect_path()}
+      href={cardDetails.path}
       className="w-[220px] group border bg-container-background rounded-md flex flex-col items-start justify-start gap-2 p-4 max-[496px]:w-full max-[496px]:flex-row max-[496px]:gap-4">
       <span className="shrink-0 bg-container-inner-item-background rounded-sm border flex items-center justify-center text-primary group-hover:text-primary-lighter transition-colors size-9 [&>svg]:size-5">
         <cardDetails.icon />

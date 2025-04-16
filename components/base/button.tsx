@@ -1,11 +1,22 @@
 import React from "react";
 
+import Link from "next/link";
+
 import { Slot } from "@radix-ui/react-slot";
-import { cva } from "class-variance-authority";
+import { cva, type VariantProps } from "class-variance-authority";
 
 import { cn } from "@/shared/utils";
 
-import type { Components } from "@/types/globals";
+interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement>, VariantProps<typeof buttonVariants> {
+  asChild?: boolean;
+}
+
+interface LinkedButtonProps {
+  link: string;
+  children?: string;
+  className?: string;
+  toggled?: boolean;
+}
 
 const buttonVariants = cva(
   "inline-flex items-center justify-center cursor-pointer gap-2 whitespace-nowrap rounded-md transition-colors disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0",
@@ -34,9 +45,19 @@ const Button = ({
   size,
   asChild = false,
   ...props
-}: React.HTMLAttributes<HTMLButtonElement> & Components.ButtonProps) => {
+}: React.HTMLAttributes<HTMLButtonElement> & ButtonProps) => {
   const Component = asChild ? Slot : "button";
   return <Component className={cn(buttonVariants({ variant, size, className }))} {...props} />;
 };
 
-export { Button, buttonVariants };
+const LinkedButton = ({ link, className, children, toggled = false }: LinkedButtonProps) => {
+  return (
+    <Button variant="ghost" className={cn("w-full justify-start", toggled && "text-primary", className)} asChild>
+      <Link href={link} className="w-full" title={children}>
+        <span className="max-w-[14.5rem] truncate">{children}</span>
+      </Link>
+    </Button>
+  );
+};
+
+export { Button, LinkedButton, buttonVariants };

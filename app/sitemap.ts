@@ -1,24 +1,25 @@
 import type { MetadataRoute } from "next";
 
-import { articleLookup } from "@/contents/__generated__/article-lookup";
-import { coreMetadata } from "@/contents/data/site-metadata";
+import { contentTreeLookup } from "@/content/data/__generated__/content-tree";
+
+import { absoluteLink } from "@/shared/utils";
 
 export const sitemap = (): MetadataRoute.Sitemap => {
   return [
     {
-      url: coreMetadata.base_url,
+      url: absoluteLink(),
       lastModified: new Date(),
     },
     {
-      url: coreMetadata.base_url + "/sozluk",
+      url: absoluteLink("/sozluk"),
       lastModified: new Date(),
     },
     {
-      url: coreMetadata.base_url + "/yardim",
+      url: absoluteLink("/site-rehberi"),
       lastModified: new Date(),
     },
-    ...Array.from(articleLookup).map((article) => ({
-      url: coreMetadata.base_url + "/" + article,
+    ...Array.from(contentTreeLookup).map((article) => ({
+      url: absoluteLink(`/${article}`),
       lastModified: new Date(),
     })),
   ];

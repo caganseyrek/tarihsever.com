@@ -28,7 +28,7 @@ const CustomPageTitle = ({ children, className, ...props }: React.HTMLAttributes
 
 const CustomPageDescription = ({ children, className, ...props }: React.HTMLAttributes<HTMLDivElement>) => {
   return (
-    <div className={cn("text-muted-foreground", className)} {...props}>
+    <div className={cn("", className)} {...props}>
       {children}
     </div>
   );

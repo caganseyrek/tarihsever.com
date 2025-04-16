@@ -1,50 +1,80 @@
+"use client";
+
 import React from "react";
 
-import { Accordion, AccordionItem } from "@/components/base/accordion";
-import { SidebarContent, SidebarGroup, SidebarGroupLabel, SidebarRoot } from "@/components/base/sidebar";
-import { SubtopicToggleArticles, SubtopicToggleButton } from "@/components/partials/article-list.partials";
+import { usePathname } from "next/navigation";
 
-import { contentTree } from "@/contents/__generated__/content-tree";
+import { ChevronDown } from "lucide-react";
+
+import { Button, LinkedButton } from "@/components/base/button";
+import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/base/collapsible";
+
+import {
+  SidebarGroup,
+  SidebarGroupContent,
+  SidebarGroupLabel,
+  SidebarItem,
+  SidebarItemSub,
+} from "@/components/partials/sidebar.partials";
+
+import { contentTree } from "@/content/data/__generated__/content-tree";
 
 import { cn } from "@/shared/utils";
 
-import type { Components } from "@/types/globals";
+interface ArticleListProps {
+  mobile?: boolean;
+}
 
-const ArticleListContent = ({ forMobileSidebar }: Components.ArticleListProps) => {
+const ArticleList = ({ mobile = false }: ArticleListProps) => {
+  const pathSections: string[] = usePathname().replace("/", "").split("/");
+  const currentSubtopic: string = pathSections[2];
+  const currentArticle: string = pathSections[3];
   return (
     <>
       {contentTree.map((topic) => (
-        <Accordion key={topic.key} type="multiple">
-          <SidebarGroup>
-            <SidebarGroupLabel
-              title={topic.title}
-              className={cn(forMobileSidebar && "bg-container-inner-item-background")}>
-              {topic.title}
-            </SidebarGroupLabel>
-            {topic.subtopics.map((subtopic) => (
-              <AccordionItem key={subtopic.key} value={subtopic.key} className="w-full">
-                <SubtopicToggleButton subtopicTitle={subtopic.title} />
-                <SubtopicToggleArticles subtopicArticles={subtopic.articles} />
-              </AccordionItem>
-            ))}
-          </SidebarGroup>
-        </Accordion>
+        <SidebarGroup key={topic.key}>
+          <SidebarGroupLabel title={topic.title} className={cn(mobile && "bg-container-inner-item-background")}>
+            {topic.title}
+          </SidebarGroupLabel>
+          <SidebarGroupContent>
+            {topic.subtopics.map((subtopic) => {
+              const isCurrentSubtopic: boolean = subtopic.key === currentSubtopic;
+              return (
+                <SidebarItem key={subtopic.key}>
+                  <Collapsible className="w-full" defaultOpen={isCurrentSubtopic}>
+                    <CollapsibleTrigger asChild>
+                      <Button
+                        variant="ghost"
+                        className={cn("w-full justify-between", isCurrentSubtopic && "text-primary")}>
+                        <span className="max-w-[12.75rem] truncate" title={subtopic.title}>
+                          {subtopic.title}
+                        </span>
+                        <ChevronDown />
+                      </Button>
+                    </CollapsibleTrigger>
+                    <CollapsibleContent className="data-[state=open]:animate-collapsible-down data-[state=closed]:animate-collapsible-down">
+                      <SidebarItemSub>
+                        {subtopic.articles.map((article) => {
+                          const isCurrentArticle: boolean = isCurrentSubtopic && article.key === currentArticle;
+                          return (
+                            <LinkedButton
+                              key={article.key}
+                              link={"/" + article.path}
+                              className={cn(isCurrentArticle && "text-primary")}>
+                              {article.title}
+                            </LinkedButton>
+                          );
+                        })}
+                      </SidebarItemSub>
+                    </CollapsibleContent>
+                  </Collapsible>
+                </SidebarItem>
+              );
+            })}
+          </SidebarGroupContent>
+        </SidebarGroup>
       ))}
     </>
-  );
-};
-
-const ArticleList = ({ forMobileSidebar }: Components.ArticleListProps) => {
-  if (forMobileSidebar) {
-    return <ArticleListContent forMobileSidebar />;
-  }
-
-  return (
-    <SidebarRoot>
-      <SidebarContent>
-        <ArticleListContent />
-      </SidebarContent>
-    </SidebarRoot>
   );
 };
 

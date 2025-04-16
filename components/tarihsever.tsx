@@ -2,9 +2,12 @@ import React from "react";
 
 import { cn } from "@/shared/utils";
 
-import type { Components } from "@/types/globals";
+interface BrandingProps {
+  variant?: "small" | "large";
+  className?: string;
+}
 
-const TarihseverIcon = ({ className, variant = "small" }: Components.BrandingProps) => {
+const TarihseverIcon = ({ className, variant = "small" }: BrandingProps) => {
   return variant === "small" ? (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -12,7 +15,7 @@ const TarihseverIcon = ({ className, variant = "small" }: Components.BrandingPro
       height="32"
       viewBox="0 0 32 32"
       fill="none"
-      className={cn("shrink-0", className)}>
+      className={cn("p-0.5 shrink-0", className)}>
       <path
         d="M0 16C0 7.16344 7.16344 0 16 0C21.6671 0 26.646 2.94625 29.4886 7.39058C29.7507 7.80033 29.4454 8.32 28.959 8.32H23.9724C23.8022 8.32 23.6397 8.25161 23.5168 8.13406C22.3446 7.01357 20.9223 6.15249 19.3422 5.64297C18.948 5.51586 18.56 5.82141 18.56 6.23558V12.8C18.56 13.1535 18.8465 13.44 19.2 13.44H31.251C31.5652 13.44 31.8344 13.668 31.8737 13.9798C31.957 14.6414 32 15.3157 32 16C32 24.8366 24.8366 32 16 32C10.3329 32 5.35403 29.0537 2.51142 24.6094C2.24934 24.1997 2.55457 23.68 3.04096 23.68H8.02764C8.19776 23.68 8.36026 23.7484 8.48323 23.8659C10.4366 25.7331 13.0844 26.88 16 26.88C20.8428 26.88 24.9466 23.716 26.357 19.3424C26.4841 18.9482 26.1786 18.56 25.7644 18.56H19.2C18.8465 18.56 18.56 18.8465 18.56 19.2V23.04C18.56 23.3935 18.2735 23.68 17.92 23.68H14.08C13.7265 23.68 13.44 23.3935 13.44 23.04V6.23558C13.44 5.82141 13.0519 5.51589 12.6577 5.64299C9.33712 6.71376 6.71376 9.33713 5.643 12.6577C5.51589 13.0519 5.82142 13.44 6.23559 13.44H10.24C10.5935 13.44 10.88 13.7265 10.88 14.08V17.92C10.88 18.2735 10.5935 18.56 10.24 18.56H0.748996C0.434758 18.56 0.165599 18.332 0.126319 18.0202C0.0429546 17.3586 0 16.6843 0 16Z"
         fill="var(--color-primary)"
@@ -28,16 +31,17 @@ const TarihseverIcon = ({ className, variant = "small" }: Components.BrandingPro
   );
 };
 
-const TarihseverTitle = ({ variant, className, asChild }: Components.BrandingProps & { asChild?: boolean }) => {
+const TarihseverTitle = ({ variant, className, asChild }: BrandingProps & { asChild?: boolean }) => {
   const Component = asChild ? "span" : "h1";
   return (
     <Component
       className={cn(
         variant === "large" ? "text-4xl" : "text-3xl",
-        "font-semibold tracking-tighter select-none [&>span]:text-primary",
+        "font-semibold tracking-[-0.0375em] select-none",
         className,
       )}>
-      Tarih<span>sever</span>
+      <span className="text-foreground">Tarih</span>
+      <span className="text-primary">sever</span>
     </Component>
   );
 };

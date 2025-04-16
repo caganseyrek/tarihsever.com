@@ -4,5 +4,5 @@ pnpm-lock.yaml
 .github/workflows
 
 # Auto Generated Files
-contents/__generated__
+content/data/__generated__
 **/*/*.toc.ts

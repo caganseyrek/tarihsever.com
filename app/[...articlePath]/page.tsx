@@ -1,31 +1,44 @@
 import React from "react";
 
+import type { Metadata } from "next";
+
 import NotFoundPage from "@/app/not-found";
 
 import { PageLayout } from "@/components/page-layout";
 
-import { articleLookup } from "@/contents/__generated__/article-lookup";
+import { useLoadPage } from "@/hooks/use-load-page";
 
-import type { Pages } from "@/types/globals";
+import { contentTreeArticles, contentTreeLookup } from "@/content/data/__generated__/content-tree";
+
+import type { ArticlePageAsyncProps, ArticlePageGenerateProps } from "@/types/globals";
+
+export const generateMetadata = async ({ params }: ArticlePageAsyncProps): Promise<Metadata> => {
+  const awaitedPathElements: string[] = (await params).articlePath ?? [];
+  if (awaitedPathElements.length !== 4) {
+    return { title: "Sayfa bulunamadı - Tarihsever" }; // Fallback
+  }
+
+  const articlePath: string = awaitedPathElements.join("/");
+  const articleTitle: string = contentTreeArticles[articlePath];
+
+  return { title: articleTitle };
+};
 
 export const dynamicParams: boolean = true;
 
-export const generateStaticParams = (): Pages.ArticlePageGenerateProps[] => {
-  return Array.from(articleLookup).map((article) => ({ articlePath: article.split("/") }));
+export const generateStaticParams = (): ArticlePageGenerateProps[] => {
+  return Array.from(contentTreeLookup).map((article) => ({ articlePath: article.split("/") }));
 };
 
-const ArticlePage = async ({ params }: Pages.ArticlePageAsyncProps) => {
+const ArticlePage = async ({ params }: ArticlePageAsyncProps) => {
   const awaitedPathElements: string[] = (await params).articlePath ?? [];
+  const { content: Content, toc, notFound } = await useLoadPage(awaitedPathElements);
 
-  if (!articleLookup.has(awaitedPathElements.join("/"))) return <NotFoundPage />;
-  const filePath: string = awaitedPathElements.slice(1).join("/");
-
-  const { default: Contents } = await import(`@/contents/topics/${filePath}.mdx`);
-  const { toc } = await import(`@/contents/topics/${filePath}.toc.ts`);
+  if (notFound) return <NotFoundPage />;
 
   return (
     <PageLayout tocObject={toc}>
-      <Contents />
+      <Content />
     </PageLayout>
   );
 };

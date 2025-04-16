@@ -6,6 +6,7 @@ import Link from "next/link";
 import { ArrowLeft } from "lucide-react";
 
 import { Button } from "@/components/base/button";
+
 import {
   CustomPageContainer,
   CustomPageDescription,
@@ -14,7 +15,7 @@ import {
 } from "@/components/partials/custom-page.partials";
 import { TarihseverIcon } from "@/components/tarihsever";
 
-export const metadata: Metadata = { title: "Sayfa bulunamadı" };
+export const metadata: Metadata = { title: "Sayfa bulunamadı - Tarihsever" };
 
 const NotFoundPage = () => {
   return (

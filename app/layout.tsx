@@ -4,7 +4,7 @@ import type { Metadata } from "next";
 
 import { ThemeProvider } from "@/components/theme/theme-provider";
 
-import { headMetadata, jsonLd } from "@/contents/data/site-metadata";
+import { headMetadata, jsonLd } from "@/content/data/site-metadata";
 
 import "@/shared/styles/globals.css";
 

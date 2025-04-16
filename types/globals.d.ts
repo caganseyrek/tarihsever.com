@@ -1,155 +1,54 @@
 import React from "react";
 
-import { Content } from "@radix-ui/react-dialog";
-import type { VariantProps } from "class-variance-authority";
 import type { LucideProps } from "lucide-react";
 
-import { buttonVariants } from "@/components/base/button";
-import { sheetVariants } from "@/components/base/sheet";
-
-export namespace Globals {
-  export interface LinkProps {
+export interface LinkProps {
+  key: string;
+  title: string;
+  path: string;
+}
+export interface ContentTreeProps {
+  key: string;
+  title: string;
+  subtopics: {
     key: string;
     title: string;
-    path: string;
-  }
-  export namespace Data {
-    export interface ContentTreeProps extends LinkProps {
-      subtopics: {
-        key: string;
-        title: string;
-        path: string;
-        articles: LinkProps[];
-      }[];
-    }
-    export interface FormattedTitleProps {
-      [key: string]: {
-        originalTitle: string;
-        formattedTitle: string;
-      };
-    }
-    export interface ShortlinkProps {
-      shortlinkCode: string;
-      redirectsTo: string;
-    }
-    export interface HeadingProps {
-      text: string;
-      level: number;
-    }
-    export interface HeadingNodeProps extends HeadingProps {
-      id: string;
-      children: HeadingNodeProps[];
-    }
-    export interface HomepageCardProps {
-      key: string;
-      title: string;
-      icon: React.ForwardRefExoticComponent<Omit<LucideProps, "ref"> & React.RefAttributes<SVGSVGElement>>;
-      description: string;
-      get_redirect_path: () => string;
-    }
-  }
+    articles: LinkProps[];
+  }[];
 }
-
-export namespace Components {
-  export interface TableOfContentsProps {
-    forMobileToggle?: boolean;
-    tocObject: Globals.Data.HeadingNodeProps[];
-  }
-  export interface BrandingProps {
-    variant?: "small" | "large";
-    className?: string;
-  }
-  export interface ButtonProps
-    extends React.ButtonHTMLAttributes<HTMLButtonElement>,
-      VariantProps<typeof buttonVariants> {
-    asChild?: boolean;
-  }
-  export interface ContentSourcesProps {
-    sources: {
-      sourceOrigin: string;
-      sourceAnchor: string;
-      sourceName: string;
-      sourceWebsiteName: string;
-      links: {
-        sourceWebsiteLink: string;
-        historicalDocument?: string;
-      };
-    }[];
-  }
-  export interface ShareDialogProps {
-    shortlinkCode: string;
-  }
-  export interface ContentSubheaderProps {
-    breadcrumbs: string[];
-    pagePath: string;
-  }
-  export interface ArticleListProps {
-    forMobileSidebar?: boolean;
-  }
-  export interface FooterProps {
-    licenseTextOnly?: boolean;
-  }
-  export interface MenuItemProps {
-    className?: string;
-    linkDetails: Globals.LinkProps;
-  }
-  export interface PageLayoutProps {
-    children?: React.ReactNode;
-    tocObject: Globals.Data.HeadingNodeProps[];
-  }
-  export interface SearchDialogInputProps {
-    className?: string;
-    iconOnly?: boolean;
-  }
-  export type SheetContentProps = React.ComponentProps<typeof Content> & VariantProps<typeof sheetVariants>;
-  export interface SidebarItemProps {
-    className?: string;
-    children?: string;
-    link: string;
-  }
-  export interface ContentHeadingProps {
-    as: "h1" | "h2" | "h3" | "h4" | "h5";
-    hasAnchorLink?: boolean;
-    className?: string;
-    children?: React.ReactNode;
-  }
-  export interface SubtopicToggleButtonProps {
-    subtopicTitle: string;
-  }
-  export interface SubtopicToggleArticleProps {
-    subtopicArticles: Globals.LinkProps[];
-  }
-  export interface HomepageCardItemProps {
-    cardDetails: Globals.Data.HomepageCardProps;
-  }
+export interface HeadingProps {
+  text: string;
+  level: number;
 }
-
-export namespace Pages {
-  export interface ArticlePageGenerateProps {
-    articlePath?: string[];
-  }
-  export interface ArticlePageAsyncProps {
-    params: Promise<ArticlePageGenerateProps>;
-  }
+export interface HeadingNodeProps extends HeadingProps {
+  id: string;
+  children: HeadingNodeProps[];
 }
-
-export namespace Workflows {
-  export namespace Prepublish {
-    export interface OutputFileProps {
-      articleLookupOutput: string;
-      contentTreeOutput: string;
-      formattedTitlesOutput: string;
-      shortlinkOutput: string;
-    }
-    export interface DirToProcessProps {
-      path: string;
-      options: {
-        addToArticleLookup: boolean;
-        addToContentTree: boolean;
-        generateShortlink: boolean;
-        generateTableOfContents: boolean;
-        injectSubheader: boolean;
-      };
-    }
-  }
+export interface MainNavigationProps {
+  key: string;
+  title: string;
+  icon: React.ForwardRefExoticComponent<Omit<LucideProps, "ref"> & React.RefAttributes<SVGSVGElement>>;
+  description: string;
+  path: string;
+}
+export interface TableOfContentsProps {
+  tocObject: HeadingNodeProps[];
+}
+export interface ArticlePageGenerateProps {
+  articlePath?: string[];
+}
+export interface ArticlePageAsyncProps {
+  params: Promise<ArticlePageGenerateProps>;
+}
+export interface OutputFileProps {
+  contentTreeOutput: string;
+  shortlinkOutput: string;
+}
+export interface DirToProcessProps {
+  path: string;
+  options: {
+    addToContentTree: boolean;
+    generateShortlink: boolean;
+    generateTableOfContents: boolean;
+  };
 }

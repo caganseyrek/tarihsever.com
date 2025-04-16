@@ -15,9 +15,7 @@ const ThemeButton = ({ className, ...props }: React.ComponentProps<typeof Button
 
   React.useEffect(() => setMounted(true), []);
   if (!mounted) {
-    return (
-      <div className={cn("border bg-container-inner-item-background size-9 min-w-9 rounded-md", className)}>&nbsp;</div>
-    );
+    return <div className={cn("border bg-container-border size-9 min-w-9 rounded-md", className)}>&nbsp;</div>;
   }
 
   return (

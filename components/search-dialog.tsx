@@ -5,7 +5,6 @@ import Link from "next/link";
 import { Search } from "lucide-react";
 
 import { Button } from "@/components/base/button";
-import { Dialog, DialogContent, DialogTitle, DialogTrigger } from "@/components/base/dialog";
 import {
   CommandArticleItem,
   CommandEmpty,
@@ -15,36 +14,36 @@ import {
   CommandList,
   CommandRoot,
   CommandSeparator,
-} from "@/components/partials/search-dialog.partials";
+} from "@/components/base/command";
+import { Dialog, DialogContent, DialogTitle, DialogTrigger } from "@/components/base/dialog";
 
-import { contentTree } from "@/contents/__generated__/content-tree";
-import { mainMenuLinks } from "@/contents/data/main-menu-links";
+import { contentTree } from "@/content/data/__generated__/content-tree";
+import { mainNavigation } from "@/content/data/main-navigation";
 
 import { cn } from "@/shared/utils";
 
-import type { Components } from "@/types/globals";
+interface SearchDialogInputProps {
+  className?: string;
+  iconOnly?: boolean;
+  placeholderText: string;
+}
 
-const SearchDialog = ({ className, iconOnly }: Components.SearchDialogInputProps) => {
+const SearchDialog = ({ className, placeholderText }: SearchDialogInputProps) => {
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <Button
-          className={cn(
-            "items-center bg-container-inner-item-background",
-            iconOnly ? "justify-center" : "w-[500px] justify-start",
-            className,
-          )}>
-          <Search /> {iconOnly ? <span className="sr-only">Arama penceresini aç</span> : "Tarihsever'de Ara..."}
+        <Button className={cn("items-center bg-container-inner-item-background w-[450px] justify-start", className)}>
+          <Search /> {placeholderText}
         </Button>
       </DialogTrigger>
       <DialogContent hasCloseButton={false} className="p-0">
         <DialogTitle className="sr-only">Arama Kutusu</DialogTitle>
         <CommandRoot>
-          <CommandInput placeholder="Sayfa veya yazı ara..." />
+          <CommandInput placeholder={placeholderText} />
           <CommandList>
             <CommandEmpty>Sonuç bulunamadı...</CommandEmpty>
             <CommandGroup heading="Sayfalar">
-              {mainMenuLinks.map((item) => (
+              {mainNavigation.map((item) => (
                 <CommandItem key={item.key} asChild>
                   <Link href={item.path} className="truncate" title={item.title}>
                     {item.title}

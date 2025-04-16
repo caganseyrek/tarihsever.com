@@ -2,13 +2,11 @@
 
 import React from "react";
 
-import { ReadonlyURLSearchParams, useRouter, useSearchParams } from "next/navigation";
+import { type ReadonlyURLSearchParams, useRouter, useSearchParams } from "next/navigation";
 
 import LoadingPage from "@/app/loading";
 
-import { shortlinks } from "@/contents/__generated__/shortlinks";
-
-import type { Globals } from "@/types/globals";
+import { useShortlink } from "@/hooks/use-shortlink";
 
 const ShortlinkPage = () => {
   const router = useRouter();
@@ -20,13 +18,11 @@ const ShortlinkPage = () => {
     if (!shortlinkCode) {
       return router.replace("/");
     }
-    const shortlinkItem: Globals.Data.ShortlinkProps | undefined = shortlinks.find(
-      (link) => link.shortlinkCode === shortlinkCode,
-    );
-    if (!shortlinkItem) {
+    const redirectPath: string | undefined = useShortlink(shortlinkCode);
+    if (!redirectPath) {
       return router.replace("/");
     }
-    return router.replace(shortlinkItem.redirectsTo);
+    return router.replace(redirectPath);
   });
 
   return <LoadingPage />;

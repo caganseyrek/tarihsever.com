@@ -1,16 +1,20 @@
 import React from "react";
 
+import type { Metadata } from "next";
+
 import { PageLayout } from "@/components/page-layout";
 
-const YardimPage = async () => {
-  const { default: Contents } = await import("@/contents/pages/site-rehberi.mdx");
-  const { toc } = await import("@/contents/pages/site-rehberi.toc");
+import { useLoadPage } from "@/hooks/use-load-page";
 
+export const metadata: Metadata = { title: "Site Rehberi" };
+
+const RehberPage = async () => {
+  const { content: Content, toc } = await useLoadPage("site-rehberi");
   return (
     <PageLayout tocObject={toc}>
-      <Contents />
+      <Content />
     </PageLayout>
   );
 };
 
-export default YardimPage;
+export default RehberPage;

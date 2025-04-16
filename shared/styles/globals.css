@@ -16,11 +16,11 @@
 
   --primary: 34, 68%, 45%;
   --primary-lighter: 33, 68%, 28%;
-  --primary-hover-background: 34, 58%, 83%;
+  --primary-hover-background: 34, 58%, 90%;
 
-  --container-background: 0, 0%, 93%;
+  --container-background: 0, 0%, 94%;
   --container-border: 0, 0%, 84%;
-  --container-inner-item-background: 0, 0%, 89%;
+  --container-inner-item-background: 0, 0%, 91%;
 
   --radius: 0.5rem;
 }
@@ -28,15 +28,33 @@
   --background: 0, 0%, 9%;
 
   --foreground: 0, 0%, 96%;
-  --muted-foreground: 0, 0%, 76%;
+  --muted-foreground: 0, 0%, 80%;
 
   --primary: 34, 68%, 53%;
   --primary-lighter: 34, 90%, 81%;
   --primary-hover-background: 35, 23%, 15%;
 
   --container-background: 0, 0%, 11%;
-  --container-border: 0, 0%, 18%;
+  --container-border: 0, 0%, 17%;
   --container-inner-item-background: 0, 0%, 14%;
+}
+
+@keyframes slideDown {
+  from {
+    height: 0;
+  }
+  to {
+    height: var(--radix-collapsible-content-height);
+  }
+}
+
+@keyframes slideUp {
+  from {
+    height: var(--radix-collapsible-content-height);
+  }
+  to {
+    height: 0;
+  }
 }
 
 @theme {
@@ -61,6 +79,9 @@
   --radius-lg: var(--radius);
   --radius-md: calc(var(--radius) - 2px);
   --radius-sm: calc(var(--radius) - 4px);
+
+  --animate-collapsible-up: slideUp 200ms ease-out;
+  --animate-collapsible-down: slideDown 200ms ease-out;
 }
 
 * {
@@ -72,22 +93,22 @@ body {
 
 @layer components {
   article {
-    @apply text-[0.965rem] leading-relaxed flex flex-col items-start justify-start gap-4 [&>*]:w-full;
+    @apply text-[0.965rem] leading-relaxed flex flex-col items-start justify-start gap-3 [&>*]:w-full;
   }
   article a {
     @apply text-primary hover:text-primary-lighter transition-colors;
   }
   article h1 {
-    @apply text-3xl font-medium tracking-tight [&_a]:text-foreground [&_a]:no-underline;
+    @apply text-3xl font-medium tracking-tight;
   }
   article h2 {
-    @apply text-2xl font-medium tracking-tight [&_a]:text-foreground [&_a]:no-underline mt-4 border-b pb-2;
+    @apply text-2xl font-medium tracking-tight text-foreground mt-6 border-b pb-2;
   }
   article h3 {
-    @apply text-lg font-medium tracking-tight [&_a]:text-foreground [&_a]:no-underline mt-4;
+    @apply text-lg font-medium tracking-tight text-foreground mt-6;
   }
   article h4 {
-    @apply font-medium tracking-tight [&_a]:text-foreground [&_a]:no-underline mt-4;
+    @apply font-medium tracking-tight text-foreground mt-6;
   }
   article p {
     @apply m-0 p-0 text-pretty dark:text-muted-foreground;
